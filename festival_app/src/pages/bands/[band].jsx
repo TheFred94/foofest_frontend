@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Anchor from "@/components/Anchor";
+
 export default function Product({ data }) {
   console.log(data);
   return (

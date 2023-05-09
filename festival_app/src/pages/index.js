@@ -40,10 +40,8 @@ function Band(band) {
     <>
       <li>{band.name}</li>
       <Button variant="contained" className="bg-indigo-500 hover:bg-violet-600 active:bg-violet-700">
-        test knap
+        <Anchor href={`/bands/${band.slug}`}>Read more</Anchor>
       </Button>
-
-      <Anchor href={`/bands/${band.slug}`}>read more</Anchor>
     </>
   );
 }
