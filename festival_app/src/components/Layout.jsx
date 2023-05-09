@@ -1,18 +1,9 @@
 import Anchor from "./Anchor";
 
-export default function Layout({ children, bandData }) {
-  console.log(bandData);
+export default function Layout({ children }) {
   return (
     <>
-      <nav>
-        {bandData.map((obj) => {
-          return (
-            <Anchor key={obj.id} href={"/bands/" + obj.slug}>
-              {obj.title}
-            </Anchor>
-          );
-        })}
-      </nav>
+      <nav></nav>
       {children}
       <footer>Footer</footer>
     </>
