@@ -5,10 +5,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Welcome to a random dog page</title>
+        <title>Welcome to FooFest!</title>
       </Head>
       <h1>Hello from home</h1>
-      <Anchor href="/dogs/henry">Henry</Anchor>
+
+      <Anchor href="/bands">Bands</Anchor>
     </>
   );
 }

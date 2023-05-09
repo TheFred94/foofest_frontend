@@ -1,11 +1,11 @@
 import Anchor from "./Anchor";
 
-export default function Layout({ children, navData }) {
-  console.log(navData);
+export default function Layout({ children, bandData }) {
+  console.log(bandData);
   return (
     <>
       <nav>
-        {navData.map((obj) => {
+        {bandData.map((obj) => {
           return (
             <Anchor key={obj.id} href={"/bands/" + obj.slug}>
               {obj.title}
