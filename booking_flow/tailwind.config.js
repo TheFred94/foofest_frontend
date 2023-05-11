@@ -20,6 +20,7 @@ module.exports = {
       "color-white": "#F9F9F9",
       "color-secondary1": "#00B88B",
       "color-secondary2": "#A836DA",
+      "color-accent": "#E4A74A",
     },
   },
   plugins: [],

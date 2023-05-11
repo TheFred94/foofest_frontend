@@ -14,6 +14,7 @@ h1 {
   font-family: "Playfair Display", serif;
   font-weight: 900;
   font-size: 3rem;
+  line-height: 3rem;
 }
 
 h2,
@@ -22,15 +23,19 @@ p {
   font-family: "Josefin Sans", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+h2 {
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 2rem;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+h3 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+p {
+  font-weight: 300;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
 }
