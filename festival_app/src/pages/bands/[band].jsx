@@ -1,17 +1,22 @@
 import Head from "next/head";
 import Anchor from "@/components/Anchor";
 
-export default function Product({ data }) {
-  console.log(data);
-  const logoUrl = data.logo.startsWith("https://") ? data.logo : `../../../foofest_backend/public/logos/${data.logo}`;
+export default function Product({ bandData, scheduleData }) {
+  // console.log(bandData);
+  console.log("scheduleData", scheduleData);
+  const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `../../../foofest_backend/public/logos/${bandData.logo}`;
   return (
     <>
       <Head>
-        <title>{data.name}</title>
+        <title>{bandData.name}</title>
       </Head>
       <Anchor href="/">Go back</Anchor>
-      <h1>{data.name}</h1>
-      <img src={logoUrl} alt={data.bio}></img>
+      <h1>{bandData.name}</h1>
+      <img src={logoUrl} alt={bandData.bio}></img>
+      <section>
+        <p></p>
+        <p></p>
+      </section>
     </>
   );
 }
@@ -21,50 +26,17 @@ export async function getServerSideProps(context) {
 
   // Fetch post data from API using the ID parameter
 
-  const res = await fetch(`http://localhost:8080/bands/${band}`);
+  const [res1, res2] = await Promise.all([fetch(`http://localhost:8080/bands/${band}`), fetch(`http://localhost:8080/schedule`)]);
 
-  const data = await res.json();
+  const bandData = await res1.json();
+  const scheduleData = await res2.json();
+  console.log("Data 2:", scheduleData);
 
   // Pass the post data as props to the page
   return {
     props: {
-      data,
+      bandData,
+      scheduleData,
     },
   };
 }
-
-// export async function getStaticProps(context) {
-//   const slug = context.params.stupid;
-//   const api = "http://localhost:8080/bands/" + slug;
-//   const res = await fetch(api);
-//   /* if (res.status != 200) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-//  */
-//   const data = await res.json();
-//   console.log(data);
-
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
-
-// export async function getStaticPaths() {
-//   const api = "http://localhost:8080/bands";
-//   const res = await fetch(api);
-//   const data = await res.json();
-//   const paths = data.map((object) => {
-//     return { params: { stupid: String(object.id) } };
-//   });
-
-//   console.log(data);
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
