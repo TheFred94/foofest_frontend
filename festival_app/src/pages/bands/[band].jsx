@@ -2,8 +2,8 @@ import Head from "next/head";
 import Anchor from "@/components/Anchor";
 
 export default function Product({ bandData, scheduleData }) {
-  // console.log(bandData);
-  console.log("scheduleData", scheduleData);
+  console.log(bandData);
+  // console.log("scheduleData", scheduleData);
   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `../../../foofest_backend/public/logos/${bandData.logo}`;
   // matching act is initialized as null
   let matchingAct = null; // Initialize a variable to store the matching act
@@ -51,16 +51,32 @@ export default function Product({ bandData, scheduleData }) {
         <title>{bandData.name}</title>
       </Head>
       <Anchor href="/">Go back</Anchor>
-      <h1>{bandData.name}</h1>
-      <img src={logoUrl} alt={bandData.bio}></img>
+
+      <img src={logoUrl} alt={bandData.bio} className="" />
+
+      <h2 className="text-4xl ">{bandData.name}</h2>
+      <section>
+        <p>{bandData.genre}</p>
+      </section>
       {matchingAct && (
         <section>
-          <p>Start: {matchingAct.start}</p>
-          <p>End: {matchingAct.end}</p>
-          <p>Day: {matchingAct.day}</p>
-          <p>Stage: {matchingAct.stage}</p>
+          <p className="font-light">
+            <span className="font-bold">Start:</span> {matchingAct.start}
+          </p>
+          <p>
+            <span className="font-bold">End:</span> {matchingAct.end}
+          </p>
+          <p>
+            <span className="font-bold">Day:</span> {matchingAct.day}
+          </p>
+          <p>
+            <span className="font-bold">Stage:</span> {matchingAct.stage}
+          </p>
         </section>
       )}
+      <section>
+        <p>{bandData.bio}</p>
+      </section>
     </>
   );
 }
