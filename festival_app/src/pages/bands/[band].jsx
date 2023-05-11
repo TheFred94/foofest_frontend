@@ -14,11 +14,9 @@ export default function Product({ bandData, scheduleData }) {
   // Loop through each key in the scheduleData object
   for (const locationKey in scheduleData) {
     const location = scheduleData[locationKey];
-
     // Loop through each day in the current location
     for (const dayKey in location) {
       const day = location[dayKey];
-
       // Loop through each act on the current day
       for (const act of day) {
         // If the act's name matches the bandData's name
@@ -30,7 +28,6 @@ export default function Product({ bandData, scheduleData }) {
             day: dayKey,
             stage: locationKey,
           };
-
           // Break out of the innermost loop since a match has been found
           break;
         }
