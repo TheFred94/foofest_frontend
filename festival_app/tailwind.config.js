@@ -13,7 +13,8 @@ module.exports = {
       },
     },
     colors: {
-      // mycolor: "#ff69b4",
+      hotpink: "#ff69b4",
+      orange: "#ff7849",
     },
   },
 

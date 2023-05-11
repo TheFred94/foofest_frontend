@@ -39,7 +39,7 @@ function Band(band) {
   return (
     <>
       <li>{band.name}</li>
-      <Button variant="contained" className="bg-indigo-500 hover:bg-violet-600 active:bg-violet-700">
+      <Button variant="contained" className="bg-[hotpink] hover:bg-[orange] active:bg-violet-700">
         <Anchor href={`/bands/${band.slug}`}>Read more</Anchor>
       </Button>
     </>
