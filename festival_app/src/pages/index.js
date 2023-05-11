@@ -13,7 +13,6 @@ export default function MyApp({ bands }) {
       <Navbar />
       <h1>Hello from home</h1>
       <BandList bands={bands} />
-
       <Anchor href="/bands">Bands</Anchor>
     </>
   );
