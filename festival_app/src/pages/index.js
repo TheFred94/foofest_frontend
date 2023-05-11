@@ -38,7 +38,7 @@ function BandList(props) {
 function Band(band) {
   return (
     <>
-      <li>{band.name}</li>
+      <h2>{band.name}</h2>
       <Button variant="contained" className="bg-[hotpink] hover:bg-[orange] active:bg-violet-700">
         <Anchor href={`/bands/${band.slug}`}>Read more</Anchor>
       </Button>
