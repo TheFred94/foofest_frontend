@@ -5,9 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;600;700&display=swap");
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --white: #f9f9f9;
 }
 
 h1 {
@@ -15,12 +13,14 @@ h1 {
   font-weight: 900;
   font-size: 3rem;
   line-height: 3rem;
+  color: var(--white);
 }
 
 h2,
 h3,
 p {
   font-family: "Josefin Sans", sans-serif;
+  color: var(--white);
 }
 
 h2 {

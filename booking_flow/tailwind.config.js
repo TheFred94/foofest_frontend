@@ -15,12 +15,16 @@ module.exports = {
     },
 
     colors: {
-      "color-primary1": "#1D1C29",
-      "color-primary2": "#102038",
+      "color-back": "#1D1C29",
+      "color-blue": "#102038",
       "color-white": "#F9F9F9",
-      "color-secondary1": "#00B88B",
-      "color-secondary2": "#A836DA",
-      "color-accent": "#E4A74A",
+      "color-green": "#00B88B",
+      "color-purple": "#A836DA",
+      "color-orange": "#E4A74A",
+    },
+    fontFamily: {
+      "font-display": ["Playfair Display", "serif"],
+      "font-sans": ["Josefin Sans", "sans-serif"],
     },
   },
   plugins: [],
