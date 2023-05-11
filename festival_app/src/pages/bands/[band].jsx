@@ -3,6 +3,7 @@ import Anchor from "@/components/Anchor";
 
 export default function Product({ data }) {
   console.log(data);
+  const logoUrl = data.logo.startsWith("https://") ? data.logo : `../../../foofest_backend/public/logos/${data.logo}`;
   return (
     <>
       <Head>
@@ -10,6 +11,7 @@ export default function Product({ data }) {
       </Head>
       <Anchor href="/">Go back</Anchor>
       <h1>{data.name}</h1>
+      <img src={logoUrl} alt={data.bio}></img>
     </>
   );
 }

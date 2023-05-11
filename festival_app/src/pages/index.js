@@ -31,17 +31,15 @@ export async function getServerSideProps() {
 }
 
 function BandList(props) {
-  return props.bands.map((band) => <Band {...band} />);
+  return props.bands.map((band) => <Band key={band.name} {...band} />);
 }
 
 function Band(band) {
   return (
     <>
-      <h2>{band.name}</h2>
-      <img src={band.logo} alt={band.bio}></img>
-      <Button variant="contained" className="bg-[hotpink] hover:bg-[orange] active:bg-violet-700">
-        <Anchor href={`/bands/${band.slug}`}>Read more</Anchor>
-      </Button>
+      <h2>
+        <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
+      </h2>
     </>
   );
 }
