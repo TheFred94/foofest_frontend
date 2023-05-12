@@ -31,6 +31,8 @@ export default function Product({ bandData, scheduleData }) {
             stage: locationKey,
           };
           console.log({ matchingAct });
+          console.log(matchingAct.day);
+
           // Break out of the innermost loop since a match has been found
           break;
         }
@@ -45,6 +47,24 @@ export default function Product({ bandData, scheduleData }) {
       break;
     }
   }
+  if (matchingAct.day === "sun") {
+    matchingAct.day = "Sunday";
+  } else if (matchingAct.day === "mon") {
+    matchingAct.day = "Monday";
+  } else if (matchingAct.day === "tue") {
+    matchingAct.day = "Tuesday";
+  } else if (matchingAct.day === "wed") {
+    matchingAct.day = "Wednesday";
+  } else if (matchingAct.day === "thu") {
+    matchingAct.day = "Thursday";
+  } else if (matchingAct.day === "fri") {
+    matchingAct.day = "Friday";
+  } else if (matchingAct.day === "sat") {
+    matchingAct.day = "Saturday";
+  } else {
+    matchingAct.day = "Invalid day";
+  }
+
   // matchingAct now contains the data for the matching act, if any.
   // This can be used to display the relevant information on the page.
 
@@ -62,14 +82,14 @@ export default function Product({ bandData, scheduleData }) {
 
         <img src={logoUrl} alt={bandData.bio} className="object-cover w-full " />
       </div>
-      <h2 className="text-4xl pt-2 pb-3">{bandData.name}</h2>
+      <h2 className="text-4xl pt-2 pb-3 ">{bandData.name}</h2>
       <section className="pb-5">
         <p>{bandData.genre}</p>
       </section>
       {matchingAct && (
         <section className="pb-8">
           <p>
-            <span className="font-semibold">{matchingAct.day}</span>, {matchingAct.start}
+            <span className="font-semibold"> {matchingAct.day}</span>, {matchingAct.start}
           </p>
           <p className="font-extralight">{matchingAct.stage}</p>
         </section>
