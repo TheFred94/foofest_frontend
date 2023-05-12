@@ -17,7 +17,7 @@ export default function AreaAndAmount() {
 
       <ChooseAmount />
 
-      {/* <ChooseArea ticketAmount={ticketAmount} /> */}
+      <ChooseArea />
 
       <div className=" grid place-content-center">
         <button

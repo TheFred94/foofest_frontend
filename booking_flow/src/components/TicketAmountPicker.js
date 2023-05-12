@@ -19,9 +19,10 @@ export function TicketAmountPicker(props) {
 
     console.log(`newAmount: `, newAmount);
 
-    setBookingDetails({
+    setBookingDetails((prev) => ({
+      ...prev,
       amount: newAmount,
-    });
+    }));
   }
   return (
     <>

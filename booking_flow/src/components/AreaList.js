@@ -8,7 +8,7 @@ export function AreaList(props) {
       <div className="grid place-content-center">
         <ul className="grid-cols-2 grid">
           {props.areas.map((area) => (
-            <AreaListItem area={area} ticketAmount={props.ticketAmount} />
+            <AreaListItem area={area} />
           ))}
         </ul>
       </div>

@@ -7,13 +7,10 @@ export function AreaListItem(props) {
 
   function updateBookingInformation() {
     // console.log(area.area);
-    setBookingDetails({
+    setBookingDetails((prev) => ({
+      ...prev,
       area: area.area,
-    });
-  }
-
-  function logBookingInformation() {
-    console.log(bookingDetails);
+    }));
   }
 
   return (
@@ -22,7 +19,7 @@ export function AreaListItem(props) {
         <h3>{area.area}</h3>
         <p
           className={
-            (props.ticketAmount < 3 && area.available > props.ticketAmount) || props.ticketAmount / 3 <= area.available
+            (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
               ? "text-color-white"
               : "text-color-purple"
           }
