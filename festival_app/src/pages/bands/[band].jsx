@@ -1,10 +1,12 @@
 import Head from "next/head";
 import Anchor from "@/components/Anchor";
+import { Spotify } from "@/components/svgs";
+import { Youtube } from "@/components/svgs";
 
 export default function Product({ bandData, scheduleData }) {
   console.log(bandData);
   // console.log("scheduleData", scheduleData);
-  const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `../../../foofest_backend/public/logos/${bandData.logo}`;
+  const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
   // matching act is initialized as null
   let matchingAct = null; // Initialize a variable to store the matching act
 
@@ -77,6 +79,10 @@ export default function Product({ bandData, scheduleData }) {
       <section>
         <p>{bandData.bio}</p>
       </section>
+      <div>
+        <Spotify />
+        <Youtube />
+      </div>
     </>
   );
 }
