@@ -2,10 +2,9 @@ import Anchor from "./Anchor";
 
 export default function Layout({ children }) {
   return (
-    <>
-      <nav></nav>
+    <div className="">
       {children}
       <footer>Footer</footer>
-    </>
+    </div>
   );
 }
