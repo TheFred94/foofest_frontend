@@ -30,6 +30,7 @@ export default function Product({ bandData, scheduleData }) {
             day: dayKey,
             stage: locationKey,
           };
+          console.log({ matchingAct });
           // Break out of the innermost loop since a match has been found
           break;
         }
@@ -61,27 +62,19 @@ export default function Product({ bandData, scheduleData }) {
 
         <img src={logoUrl} alt={bandData.bio} className="object-cover w-full " />
       </div>
-      <h2 className="text-4xl ">{bandData.name}</h2>
-      <section>
+      <h2 className="text-4xl pt-2 pb-3">{bandData.name}</h2>
+      <section className="pb-5">
         <p>{bandData.genre}</p>
       </section>
       {matchingAct && (
-        <section>
-          <p className="font-light">
-            <span className="font-bold">Start:</span> {matchingAct.start}
-          </p>
+        <section className="pb-8">
           <p>
-            <span className="font-bold">End:</span> {matchingAct.end}
+            <span className="font-semibold">{matchingAct.day}</span>, {matchingAct.start}
           </p>
-          <p>
-            <span className="font-bold">Day:</span> {matchingAct.day}
-          </p>
-          <p>
-            <span className="font-bold">Stage:</span> {matchingAct.stage}
-          </p>
+          <p className="font-extralight">{matchingAct.stage}</p>
         </section>
       )}
-      <section>
+      <section className="pb-10">
         <h3>Biografi</h3>
         <p>{bandData.bio}</p>
       </section>
