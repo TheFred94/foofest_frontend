@@ -11,12 +11,9 @@ export default function Program({ schedule }) {
   }
   return (
     <div>
-      <Navbar />
-      <div>
-        <h1>Program</h1>
-        <Filterbuttons schedule={schedule} onClick={handleStageClick} />
-        <Schedule schedule={schedule} selectedStage={selectedStage} />
-      </div>
+      <h1>Program</h1>
+      <Filterbuttons schedule={schedule} onClick={handleStageClick} />
+      <Schedule schedule={schedule} selectedStage={selectedStage} />
     </div>
   );
 }
@@ -35,7 +32,6 @@ function Filterbuttons({ schedule, onClick }) {
 }
 
 function Schedule({ schedule, selectedStage }) {
-  $;
   return (
     <div className="schedule">
       {Object.keys(schedule)
