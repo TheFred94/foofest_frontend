@@ -2,7 +2,7 @@ import Head from "next/head";
 import Anchor from "@/components/Anchor";
 import App from "next/app";
 import Button from "@mui/material/Button";
-
+import Navbar from "@/components/Navbar";
 export default function MyApp({ bands }) {
   console.log(bands);
   return (
@@ -10,9 +10,9 @@ export default function MyApp({ bands }) {
       <Head>
         <title>Welcome to FooFest!</title>
       </Head>
+      <Navbar />
       <h1>Hello from home</h1>
       <BandList bands={bands} />
-
       <Anchor href="/bands">Bands</Anchor>
     </>
   );
@@ -32,7 +32,7 @@ export async function getServerSideProps() {
 }
 
 function BandList(props) {
-  return props.bands.map((band) => <Band {...band} />);
+  return props.bands.map(band => <Band {...band} />);
 }
 
 function Band(band) {
