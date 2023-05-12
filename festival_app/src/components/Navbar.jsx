@@ -6,7 +6,7 @@ import TemporaryDrawer from "./BurgerMenu";
 
 function Navbar() {
   return (
-    <div className="flex justify-between bg-color-black p-3">
+    <div className="flex justify-between bg-color-black p-3 sticky top-0 w-full z-50">
       <a className="flex flex-col justify-center">
         <Image className="place-self-center" src={navLogo} height={75} width={75} alt="shit" />
         <span className="font-font-display font-bold text-xl text-color-white">FOOFEST</span>
