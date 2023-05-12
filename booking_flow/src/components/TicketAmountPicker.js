@@ -1,23 +1,17 @@
 import Button from "@mui/material/Button";
 import { BookingInformation } from "@/pages/_app";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 export function TicketAmountPicker(props) {
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
   const [ticketAmount, setTicketAmount] = useState(1);
 
-  // setBookingDetails({ amount: props.ticketAmount });
-
-  // function ticketTing(action) {
-  //   action ? setTicketAmount((old) => old + 1) : setTicketAmount((old) => old - 1);
-
-  //   console.log(ticketAmount);
-  // }
+  useEffect(() => {
+    updateBookingDetails();
+  }, [ticketAmount]);
 
   function addOrSubtractTicket(action) {
     action ? setTicketAmount((old) => old + 1) : setTicketAmount((old) => old - 1);
-
-    updateBookingDetails();
   }
 
   function updateBookingDetails() {
