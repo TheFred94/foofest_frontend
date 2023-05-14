@@ -17,7 +17,7 @@ export default function PersonalProgram() {
         <title>Personal Program overview</title>
       </Head>
       <Navbar />
-      <main className="h-screen bg-gray-300">
+      <main className="h-screen">
         <h1 className="text-sm color-black">Your personal program</h1>
         <article className="grid gap-4 grid-cols-2">
           <div>
