@@ -7,8 +7,8 @@ import TemporaryDrawer from "./BurgerMenu";
 function Navbar() {
   return (
     <div className="flex justify-between bg-color-black p-3 sticky top-0 w-full z-50">
-      <a className="flex flex-col justify-center max-w-fit">
-        <NavLogo className="max-w-max" />
+      <a className="flex flex-col justify-center max">
+        <NavLogo className="w-24" />
         <span className="font-font-display font-bold text-xl text-color-white">FOOFEST</span>
       </a>
       <div className="flex justify-center">
