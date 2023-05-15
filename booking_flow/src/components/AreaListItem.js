@@ -21,9 +21,11 @@ export function AreaListItem(props) {
   function checkTicketAndArea() {
     console.log(`checkTicketAndArea`);
 
-    if (bookingDetails.onTentForEach === true) {
+    if (bookingDetails.oneTentForEach === true) {
+      // console.log(`oneTentForEach true:`, oneTentForEach);
       bookingDetails.amount <= area.available ? updateBookingInformation() : handleOpen();
-    } else if (bookingDetails.onTentForEach === false) {
+    } else if (bookingDetails.oneTentForEach === false) {
+      // console.log(`oneTentForEach false:`, oneTentForEach);
       (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
         ? updateBookingInformation()
         : handleOpen();
