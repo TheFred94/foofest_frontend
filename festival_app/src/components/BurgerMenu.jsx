@@ -5,8 +5,8 @@ import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 
+import Anchor from "./Anchor";
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
     right: false,
@@ -29,10 +29,10 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Program", "Biletter", "Nyheder", "Frivillig"].map((text, index) => (
+        {["Program", "Biletter", "Nyheder", "Frivillig"].map(text => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemText primary={text} />
+              <Anchor href={`./${text.toLowerCase()}`}>{text}</Anchor>
             </ListItemButton>
           </ListItem>
         ))}
