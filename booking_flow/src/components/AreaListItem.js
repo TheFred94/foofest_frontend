@@ -20,9 +20,14 @@ export function AreaListItem(props) {
 
   function checkTicketAndArea() {
     console.log(`checkTicketAndArea`);
-    (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
-      ? updateBookingInformation()
-      : handleOpen();
+
+    if (bookingDetails.onTentForEach === true) {
+      bookingDetails.amount <= area.available ? updateBookingInformation() : handleOpen();
+    } else if (bookingDetails.onTentForEach === false) {
+      (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
+        ? updateBookingInformation()
+        : handleOpen();
+    }
   }
 
   const style = {
@@ -43,6 +48,16 @@ export function AreaListItem(props) {
       ...prev,
       area: area.area,
     }));
+  }
+
+  function areaAvaivable() {
+    if (bookingDetails.oneTentForEach === true) {
+      return bookingDetails.amount <= area.available ? "text-color-white" : "text-color-purple";
+    } else if (bookingDetails.oneTentForEach === false) {
+      return (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
+        ? "text-color-white"
+        : "text-color-purple";
+    }
   }
 
   return (
@@ -76,9 +91,16 @@ export function AreaListItem(props) {
         <h3>{area.area}</h3>
         <p
           className={
-            (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
-              ? "text-color-white"
-              : "text-color-purple"
+            // if(bookingDetails.oneTentForEach === true){
+            //   bookingDetails.amount <= area.available ? "text-color-white" : "text-color-purple";
+
+            // }else if(bookingDetails.oneTentForEach === false){
+            //   (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
+            //   ? "text-color-white"
+            //   : "text-color-purple"
+            // }
+
+            areaAvaivable()
           }
         >
           {area.available} spots left

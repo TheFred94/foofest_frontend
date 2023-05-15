@@ -1,14 +1,18 @@
 import Button from "@mui/material/Button";
 import { BookingInformation } from "@/pages/_app";
 import { useContext, useState, useEffect } from "react";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export function TicketAmountPicker(props) {
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
   const [ticketAmount, setTicketAmount] = useState(1);
+  const [oneTentForEach, setOneTentForEach] = useState(false);
 
   useEffect(() => {
     updateBookingDetails();
-  }, [ticketAmount]);
+  }, [ticketAmount, oneTentForEach]);
 
   function addOrSubtractTicket(action) {
     action ? setTicketAmount((old) => old + 1) : setTicketAmount((old) => old - 1);
@@ -22,7 +26,16 @@ export function TicketAmountPicker(props) {
     setBookingDetails((prev) => ({
       ...prev,
       amount: newAmount,
+      oneTentForEach: oneTentForEach,
     }));
+  }
+
+  function tentForEach(e) {
+    const isChecked = e.target.checked;
+
+    console.log(isChecked);
+
+    isChecked ? setOneTentForEach(true) : setOneTentForEach(false);
   }
   return (
     <>
@@ -37,6 +50,15 @@ export function TicketAmountPicker(props) {
           +
         </Button>
       </div>
+
+      <FormGroup>
+        <FormControlLabel
+          onClick={tentForEach}
+          control={<Checkbox defaultUnChecked />}
+          label="One tent for each person"
+          className="text-color-white"
+        />
+      </FormGroup>
     </>
   );
 }
