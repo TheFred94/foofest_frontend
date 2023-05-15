@@ -3,6 +3,11 @@ import Anchor from "@/components/Anchor";
 import App from "next/app";
 import Button from "@mui/material/Button";
 import Navbar from "@/components/Navbar";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import { useState, useEffect } from "react";
+import { ButtonBase } from "@mui/material";
 export default function MyApp({ bands }) {
   console.log(bands);
   return (
