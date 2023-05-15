@@ -60,11 +60,13 @@ function FilterbuttonsDay({ schedule, onClick }) {
 function Schedule({ schedule, selectedStage, selectedDay }) {
   return (
     <div className="schedule">
+      {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
       {Object.keys(schedule)
         .filter(stage => !selectedStage || stage === selectedStage)
         .map(stage => (
           <div key={stage}>
             <h2>{stage}</h2>
+            {/* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */}
             {Object.keys(schedule[stage])
               .filter(day => !selectedDay || day === selectedDay)
               .map(day => (
