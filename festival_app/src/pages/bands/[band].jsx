@@ -99,8 +99,8 @@ export default function Product({ bandData, scheduleData }) {
         <p>{bandData.bio}</p>
       </section>
       <div className="flex justify-center gap-10">
-        <Spotify className="" />
-        <Youtube />
+        <Spotify className="h-12 w-12 mr-10" />
+        <Youtube className="h-12 w-12" />
       </div>
     </>
   );
