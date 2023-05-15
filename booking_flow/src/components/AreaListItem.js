@@ -1,37 +1,39 @@
 import { BookingInformation } from "@/pages/_app";
 import { useContext, useState } from "react";
-
-//
-//
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 export function AreaListItem(props) {
+  // creates variables and sets defaultState
+
+  // reasigns props.area to area for easy use later
   const area = props.area;
+  // sets state of bookingDetails to our context(BookingInformation).
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
-  const [areaModal, setAreaModal] = useState(false);
+  // state for modal
   const [open, setOpen] = useState(false);
+
+  // creates functions to handle modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  /* This function checks if there is enough available spots for the chosen amount of tickets  */
   function checkTicketAndArea() {
-    // console.log(`checkTicketAndArea`);
-
+    // checks if you want to have a tent spot for each ticket, or if you are willing to share tent.
     if (bookingDetails.oneTentForEach === true) {
-      // console.log(`oneTentForEach true:`, oneTentForEach);
+      // Checks if there is enough spots available
       bookingDetails.amount <= area.available ? updateBookingInformation() : handleOpen();
     } else if (bookingDetails.oneTentForEach === false) {
-      // console.log(`oneTentForEach false:`, oneTentForEach);
+      // Checks if there is enough spots available
       (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
         ? updateBookingInformation()
         : handleOpen();
     }
   }
-
+  // styling for modal
   const style = {
     position: "absolute",
     top: "50%",
@@ -44,6 +46,7 @@ export function AreaListItem(props) {
     p: 4,
   };
 
+  // This function updates the bookingInformation, so that it  also contains the clicked area
   function updateBookingInformation() {
     // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
@@ -52,7 +55,9 @@ export function AreaListItem(props) {
     }));
   }
 
-  function areaAvaivable() {
+  // This function helps to indicate whether an area is available based on the amount of tickets you have chosen.
+  // if the area is available then the text is white, else it's purple
+  function areaAvailable() {
     if (bookingDetails.oneTentForEach === true) {
       return bookingDetails.amount <= area.available ? "text-color-white" : "text-color-purple";
     } else if (bookingDetails.oneTentForEach === false) {
@@ -64,6 +69,7 @@ export function AreaListItem(props) {
 
   return (
     <>
+      {/* modal from mui */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -93,16 +99,8 @@ export function AreaListItem(props) {
         <h3>{area.area}</h3>
         <p
           className={
-            // if(bookingDetails.oneTentForEach === true){
-            //   bookingDetails.amount <= area.available ? "text-color-white" : "text-color-purple";
-
-            // }else if(bookingDetails.oneTentForEach === false){
-            //   (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
-            //   ? "text-color-white"
-            //   : "text-color-purple"
-            // }
-
-            areaAvaivable()
+            // class is based on return of areaAvailable function
+            areaAvailable()
           }
         >
           {area.available} spots left

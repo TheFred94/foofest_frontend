@@ -5,6 +5,8 @@ import { ChooseArea } from "../components/ChooseArea";
 
 export default function AreaAndAmount() {
   // States
+
+  /* creates state for our useContext "BookingInformation" that wraps around the hole app */
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
 
   return (
@@ -15,10 +17,13 @@ export default function AreaAndAmount() {
         sapien.
       </p>
 
+      {/* component, that lets user choose amount of tickets */}
       <ChooseAmount />
 
+      {/* Component, that lets user choose area, based on amount of tickets */}
       <ChooseArea />
 
+      {/* button for testing, just logs bookingDetails */}
       <div className=" grid place-content-center">
         <button
           className="bg-color-white p-5 m-5"
