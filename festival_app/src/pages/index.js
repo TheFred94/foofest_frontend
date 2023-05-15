@@ -15,7 +15,7 @@ export default function MyApp({ bands }) {
       <Head>
         <title>Welcome to FooFest!</title>
       </Head>
-      <Navbar />
+
       <h1>Hello from home</h1>
       <BandList bands={bands} />
       <Anchor href="/bands">Bands</Anchor>

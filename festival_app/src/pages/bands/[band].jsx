@@ -3,8 +3,9 @@ import Anchor from "@/components/Anchor";
 import { Spotify } from "@/components/svgs";
 import { Youtube } from "@/components/svgs";
 
-export default function Product({ bandData, scheduleData }) {
-  console.log(bandData);
+export default function Product({ bandData, scheduleData, eventData }) {
+  // console.log(bandData);
+  console.log(eventData);
   // console.log("scheduleData", scheduleData);
   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
   // matching act is initialized as null
@@ -30,8 +31,8 @@ export default function Product({ bandData, scheduleData }) {
             day: dayKey,
             stage: locationKey,
           };
-          console.log({ matchingAct });
-          console.log(matchingAct.day);
+          // console.log({ matchingAct });
+          // console.log(matchingAct.day);
 
           // Break out of the innermost loop since a match has been found
           break;
@@ -99,8 +100,8 @@ export default function Product({ bandData, scheduleData }) {
         <p>{bandData.bio}</p>
       </section>
       <div className="flex justify-center gap-10">
-        <Spotify className="h-12 w-12 mr-10" />
-        <Youtube className="h-12 w-12" />
+        <Spotify className="w-12 h-12 mr-10" />
+        <Youtube className="w-12 h-12" />
       </div>
     </>
   );
@@ -111,16 +112,18 @@ export async function getServerSideProps(context) {
 
   // Fetch post data from API using the ID parameter
 
-  const [res1, res2] = await Promise.all([fetch(`http://localhost:8080/bands/${band}`), fetch(`http://localhost:8080/schedule`)]);
+  const [res1, res2, res3] = await Promise.all([fetch(`http://localhost:8080/bands/${band}`), fetch(`http://localhost:8080/schedule`), fetch(`http://localhost:8080/events`)]);
 
   const bandData = await res1.json();
   const scheduleData = await res2.json();
+  const eventData = await res3.json();
 
   // Pass the post data as props to the page
   return {
     props: {
       bandData,
       scheduleData,
+      eventData,
     },
   };
 }
