@@ -54,7 +54,7 @@ export function TicketAmountPicker(props) {
       <FormGroup>
         <FormControlLabel
           onClick={tentForEach}
-          control={<Checkbox defaultUnChecked />}
+          control={<Checkbox />}
           label="One tent for each person"
           className="text-color-white"
         />
