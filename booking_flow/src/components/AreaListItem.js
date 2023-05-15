@@ -19,7 +19,7 @@ export function AreaListItem(props) {
   const handleClose = () => setOpen(false);
 
   function checkTicketAndArea() {
-    console.log(`checkTicketAndArea`);
+    // console.log(`checkTicketAndArea`);
 
     if (bookingDetails.oneTentForEach === true) {
       // console.log(`oneTentForEach true:`, oneTentForEach);
@@ -45,7 +45,7 @@ export function AreaListItem(props) {
   };
 
   function updateBookingInformation() {
-    console.log(`updateBookingInformation called`);
+    // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
       area: area.area,

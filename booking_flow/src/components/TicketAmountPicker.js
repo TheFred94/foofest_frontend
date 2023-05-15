@@ -21,7 +21,7 @@ export function TicketAmountPicker(props) {
   function updateBookingDetails() {
     const newAmount = ticketAmount;
 
-    console.log(`newAmount: `, newAmount);
+    // console.log(`newAmount: `, newAmount);
 
     setBookingDetails((prev) => ({
       ...prev,
@@ -33,7 +33,7 @@ export function TicketAmountPicker(props) {
   function tentForEach(e) {
     const isChecked = e.target.checked;
 
-    console.log(isChecked);
+    // console.log(isChecked);
 
     isChecked ? setOneTentForEach(true) : setOneTentForEach(false);
   }
