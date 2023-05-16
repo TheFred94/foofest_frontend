@@ -3,15 +3,38 @@ import { BookingInformation } from "./_app";
 import ChooseAmount from "@/components/ChooseAmount";
 import { ChooseArea } from "../components/ChooseArea";
 import Button from "@mui/material/Button";
+import { useRouter } from "next/router";
 export default function AreaAndAmount() {
   // States
 
   /* creates state for our useContext "BookingInformation" that wraps around the hole app */
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
+  const router = useRouter();
+  async function reserveTickets() {
+    const payload = { area: bookingDetails.area, amount: bookingDetails.amount };
+
+    const response = await fetch("http://localhost:8080/reserve-spot", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const json = await response.json();
+    console.log(json);
+    updateBookingDetails(json.id);
+    router.push(`/addOns`);
+  }
+  function updateBookingDetails(reservation_id) {
+    setBookingDetails((prev) => ({
+      ...prev,
+      reservation_id,
+    }));
+  }
 
   return (
     <main>
-      <h1>Køb billet</h1>
+      <h1 className="text-center"> Køb billet</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
         sapien.
@@ -34,9 +57,14 @@ export default function AreaAndAmount() {
           Log bookingDetails
         </button>
       </div>
-      <Button className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black">
-        KØB BILLET
-      </Button>
+      <div className="flex justify-center">
+        <Button
+          className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black"
+          onClick={reserveTickets}
+        >
+          KØB BILLET
+        </Button>
+      </div>
     </main>
   );
 }
