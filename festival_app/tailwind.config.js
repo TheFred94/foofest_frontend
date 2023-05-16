@@ -21,8 +21,8 @@ module.exports = {
       "color-orange": "#E4A74A",
     },
     fontFamily: {
-      "font-display": ["Playfair Display", "serif"],
-      "font-sans": ["Josefin Sans", "sans-serif"],
+      sans: ["var(--font-josefin)"],
+      serif: ["var(--font-playfair)"],
     },
   },
   plugins: [],

@@ -5,7 +5,7 @@ export default function ChooseAmount() {
     <>
       <div>
         <div className="grid place-content-center">
-          <h3 className="text-center m-8">Antal</h3>
+          <h3 className="text-center m-8 ">Antal</h3>
 
           <TicketAmountPicker />
         </div>

@@ -1,11 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       backgroundImage: {
@@ -24,8 +20,8 @@ module.exports = {
       "color-yellow": "#F9F01F",
     },
     fontFamily: {
-      "font-display": ["Playfair Display", "serif"],
-      "font-sans": ["Josefin Sans", "sans-serif"],
+      sans: ["var(--font-josefin)"],
+      serif: ["var(--font-playfair)"],
     },
   },
   plugins: [],

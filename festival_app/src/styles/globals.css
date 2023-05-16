@@ -1,16 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;600;700&display=swap%22");
 
 :root {
   --white: #f9f9f9;
-  --black: #171717;
+  --font-josefin: "Josefin Sans", sans-serif;
+  --font-playfair: "Playfair Display", serif;
 }
-
 h1 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-playfair);
   font-weight: 900;
   font-size: 4rem;
   line-height: 3rem;
@@ -23,13 +21,13 @@ h2 {
   position: relative;
   -webkit-text-stroke: 0.12rem currentcolor;
   -webkit-text-fill-color: transparent;
-  font-family: "Josefin Sans", sans-serif;
+  font-family: var(--font-josefin);
   color: var(--white);
 }
 
 h3,
 p {
-  font-family: "Josefin Sans", sans-serif;
+  font-family: var(--font-josefin);
   color: var(--white);
 }
 

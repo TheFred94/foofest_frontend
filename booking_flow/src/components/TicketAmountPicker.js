@@ -42,21 +42,13 @@ export function TicketAmountPicker(props) {
   return (
     <>
       <div className="flex">
-        <Button
-          className="text-color-white"
-          variant="text"
-          onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */
-        >
+        <Button className="text-color-white " variant="text" onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */>
           -
         </Button>
 
-        <p className="mx-10">{ticketAmount}</p>
+        <p className="mx-10 font-bold text-5xl">{ticketAmount}</p>
 
-        <Button
-          className="text-color-white"
-          variant="text"
-          onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */
-        >
+        <Button className="text-color-white " variant="text" onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */>
           +
         </Button>
       </div>
@@ -65,9 +57,23 @@ export function TicketAmountPicker(props) {
       <FormGroup>
         <FormControlLabel
           onClick={tentForEach}
-          control={<Checkbox />}
+          control={
+            <Checkbox
+              sx={{
+                "& .MuiSvgIcon-root": {
+                  color: "yellow",
+                  "&.Mui-checked": {
+                    color: "yellow",
+                  },
+                  "&.MuiTouchRippe-root": {
+                    color: "yellow",
+                  },
+                },
+              }}
+            />
+          }
           label="One tent for each person"
-          className="text-color-white"
+          className="text-color-white font-sans"
         />
       </FormGroup>
     </>
