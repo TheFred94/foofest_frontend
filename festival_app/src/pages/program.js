@@ -1,7 +1,5 @@
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
+import { TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { red } from "@mui/material/colors";
@@ -12,6 +10,7 @@ export default function Program({ schedule, bands }) {
   // console.log(bands);
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedAct, setSelectedAct] = useState(null);
 
   function handleStageClick(stage) {
     setSelectedStage(stage);
@@ -22,16 +21,17 @@ export default function Program({ schedule, bands }) {
     // console.log(day);
   }
 
-  // useEffect(() => {
-  //   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
-  // }, []);
-
+  function handleChange(e) {
+      setSelectedAct(e.target.value);
+    console.log(e.target.value);
+  }
   return (
     <div>
       <h1>Program</h1>
+      <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
-      <Schedule schedule={schedule} bands={bands} selectedStage={selectedStage} selectedDay={selectedDay} />
+      <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} />
     </div>
   );
 }
@@ -70,7 +70,7 @@ function FilterbuttonsDay({ schedule, onClick }) {
   );
 }
 
-function Schedule({ schedule, bands, selectedStage, selectedDay }) {
+function Schedule({ schedule, bands, selectedStage, selectedDay, selectedAct }) {
   const [snackOpen, setSnackOpen] = useState([false, "", ""]);
   // A const, that runs through the bands and matches it witht he act to get their image. Add "style={{backgroundImage}}" and we should have i running. Maybe, it will only show one image, not sure.
   const backgroundImage = (name) => {
@@ -109,66 +109,56 @@ function Schedule({ schedule, bands, selectedStage, selectedDay }) {
     <div className="schedule">
       {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
       {Object.keys(schedule)
-        .filter((stage) => !selectedStage || stage === selectedStage)
-        .map((stage) => (
-          <div key={stage}>
+        .filter(stage => !selectedStage || stage === selectedStage)
+        .map(stage => {
+          if(selectedStage === (stage)) { 
+            return <div key={stage}>
+            <ObjectDay
+              schedule={schedule}
+              stage={...schedule[stage]}
+              selectedDay={selectedDay}
+              selectedAct={selectedAct}
+            />
+          </div>} else {return <div key={stage}>
             <h2>{stage}</h2>
-            {/* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */}
-            {Object.keys(schedule[stage])
-              .filter((day) => !selectedDay || day === selectedDay)
-              .map((day) => (
-                <div key={day}>
-                  <h3>{day.toUpperCase(9)}</h3>
-                  <div className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
-                    {schedule[stage][day].map((timeslot) =>
-                      timeslot.act === "break" ? (
-                        <></>
-                      ) : (
-                        <>
-                          <div key={`${timeslot.start}-${timeslot.end}`} className="relative grid grid-rows-2 items-start justify-items-center bg-cover bg-no-repeat h-96 pt-20 pb-110 px-8" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
-                            <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-white p-5 rounded-full flex items-center justify-center">
-                              <Checkbox
-                                onClick={LocalStorageFavourite}
-                                value={timeslot.act}
-                                classNmae="p-0"
-                                icon={<FavoriteBorder />}
-                                checkedIcon={<Favorite />}
-                                color="error"
-                                sx={{
-                                  "& .MuiSvgIcon-root": { fontSize: 30 },
-                                }}
-                              />
-                            </div>
-                            <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75">{timeslot.act}</span>
-                            <span className="text-color-blue px-6 py-3 text-2xl text-center bg-color-yellow-75">
-                              {timeslot.start} - {timeslot.end}
-                            </span>
-                          </div>
-                        </>
-                      )
-                    )}
-                  </div>
-                </div>
-              ))}
+            <ObjectDay
+              schedule={schedule}
+              stage={...schedule[stage]}
+              selectedDay={selectedDay}
+              selectedAct={selectedAct}
+            />
           </div>
-        ))}
+          }
+})}
       <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[2]} action={action} />;
     </div>
   );
 }
 
-// export async function getServerSideProps() {
-//   const api = "http://localhost:8080/schedule";
-//   const res = await fetch(api);
-//   const data = await res.json();
-//   console.log(data);
+function ObjectDay({stage, selectedDay, selectedAct }) {
+  {
+    /* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */
+  }
+  return Object.keys(stage)
+    .filter(day => !selectedDay || day === selectedDay)
+    .map(day => {
+     if (selectedDay === (day) ){return <div key={day}>
+        
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
+      </div>} else { return <div key={day}>
+        <h3>{day}</h3>
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
+      </div>}
+});
+}
 
-//   return {
-//     props: {
-//       schedule: data,
-//     },
-//   };
-// }
+function ObjectBand({ days, selectedAct }) {
+/*   console.log(Object.values(days)) */
+  return Object.values(days).filter(band => band.act.toLowerCase() !== "break" && (!selectedAct || band.act.toLowerCase().includes(selectedAct))).map(band => (<div key={band.act}>
+  <span>{band.act}</span>
+</div>))
+
+}
 
 export async function getServerSideProps() {
   // const band = context.params.band;
