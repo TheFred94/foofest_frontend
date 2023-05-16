@@ -105,24 +105,10 @@ function ObjectDay({schedule, stage, selectedDay, selectedAct }) {
 
 function ObjectBand({ days, selectedAct }) {
   console.log(Object.values(days))
-  return Object.values(days).filter(band => !selectedAct || `${band.act.toLowerCase()}`.includes(selectedAct)).map(band => (<div key={`${band.start}-${band.end}`}>
+  return Object.values(days).filter(band => band.act.toLowerCase() !== "break" && (!selectedAct || band.act.toLowerCase().includes(selectedAct))).map(band => (<div key={band.act}>
   <span>{band.act}</span>
 </div>))
 
-/*   return days.map(band => (
-      <div key={`${band.start}-${band.end}`}>
-        <span>{band.act}</span>
-      </div>
-    )); */
-
-  /*   {
-    days.map(timeslot => (
-      <div key={`${timeslot.start}-${timeslot.end}`}>
-        <span>{timeslot.act}</span>
-      </div>
-    ));
-  }
-  console.log(e); */
 }
 
 export async function getServerSideProps() {
