@@ -3,10 +3,9 @@ import Anchor from "@/components/Anchor";
 import { Spotify } from "@/components/svgs";
 import { Youtube } from "@/components/svgs";
 
-export default function Product({ bandData, scheduleData, eventData }) {
-  // console.log(bandData);
-  console.log(eventData);
-  // console.log("scheduleData", scheduleData);
+export default function Product({ bandData, scheduleData }) {
+  console.log(bandData);
+  console.log("scheduleData", scheduleData);
   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
   // matching act is initialized as null
   let matchingAct = null; // Initialize a variable to store the matching act
@@ -31,6 +30,12 @@ export default function Product({ bandData, scheduleData, eventData }) {
             day: dayKey,
             stage: locationKey,
           };
+
+          // Check if the matching act is cancelled and add the the property to the mathcingAct object if true
+          if (act.cancelled) {
+            matchingAct.cancelled = act.cancelled;
+          }
+
           // console.log({ matchingAct });
           // console.log(matchingAct.day);
 
@@ -68,7 +73,8 @@ export default function Product({ bandData, scheduleData, eventData }) {
 
   // matchingAct now contains the data for the matching act, if any.
   // This can be used to display the relevant information on the page.
-
+  console.log(matchingAct);
+  console.log(matchingAct.cancelled);
   return (
     <>
       <Head>
@@ -92,7 +98,8 @@ export default function Product({ bandData, scheduleData, eventData }) {
           <p>
             <span className="font-semibold"> {matchingAct.day}</span>, {matchingAct.start}
           </p>
-          <p className="font-extralight">{matchingAct.stage}</p>
+
+          <span className="font-thin text-lg text-color-white">{matchingAct.stage}</span>
         </section>
       )}
       <section className="pb-10">
@@ -106,24 +113,21 @@ export default function Product({ bandData, scheduleData, eventData }) {
     </>
   );
 }
-
 export async function getServerSideProps(context) {
   const band = context.params.band;
 
   // Fetch post data from API using the ID parameter
 
-  const [res1, res2, res3] = await Promise.all([fetch(`http://localhost:8080/bands/${band}`), fetch(`http://localhost:8080/schedule`), fetch(`http://localhost:8080/events`)]);
+  const [res1, res2, res3] = await Promise.all([fetch(`http://localhost:8080/bands/${band}`), fetch(`http://localhost:8080/schedule`)]);
 
   const bandData = await res1.json();
   const scheduleData = await res2.json();
-  const eventData = await res3.json();
 
   // Pass the post data as props to the page
   return {
     props: {
       bandData,
       scheduleData,
-      eventData,
     },
   };
 }
