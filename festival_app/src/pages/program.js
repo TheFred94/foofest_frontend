@@ -114,7 +114,7 @@ function ObjectDay({stage, selectedDay, selectedAct }) {
 }
 
 function ObjectBand({ days, selectedAct }) {
-  console.log(Object.values(days))
+/*   console.log(Object.values(days)) */
   return Object.values(days).filter(band => band.act.toLowerCase() !== "break" && (!selectedAct || band.act.toLowerCase().includes(selectedAct))).map(band => (<div key={band.act}>
   <span>{band.act}</span>
 </div>))
