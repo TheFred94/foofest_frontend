@@ -72,8 +72,16 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct }) {
       {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
       {Object.keys(schedule)
         .filter(stage => !selectedStage || stage === selectedStage)
-        .map(stage => (
-          <div key={stage}>
+        .map(stage => {
+          if(selectedStage === (stage)) { 
+            return <div key={stage}>
+            <ObjectDay
+              schedule={schedule}
+              stage={...schedule[stage]}
+              selectedDay={selectedDay}
+              selectedAct={selectedAct}
+            />
+          </div>} else {return <div key={stage}>
             <h2>{stage}</h2>
             <ObjectDay
               schedule={schedule}
@@ -82,25 +90,27 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct }) {
               selectedAct={selectedAct}
             />
           </div>
-        ))}
+          }
+})}
     </div>
   );
 }
 
-function ObjectDay({schedule, stage, selectedDay, selectedAct }) {
-
-
+function ObjectDay({stage, selectedDay, selectedAct }) {
   {
     /* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */
   }
   return Object.keys(stage)
     .filter(day => !selectedDay || day === selectedDay)
-    .map(day => (
-      <div key={day}>
+    .map(day => {
+     if (selectedDay === (day) ){return <div key={day}>
+        
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
+      </div>} else { return <div key={day}>
         <h3>{day}</h3>
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
-      </div>
-    ));
+      </div>}
+});
 }
 
 function ObjectBand({ days, selectedAct }) {
