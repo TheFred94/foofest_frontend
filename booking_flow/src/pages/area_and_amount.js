@@ -36,8 +36,7 @@ export default function AreaAndAmount() {
     <main>
       <h1 className="text-center"> Køb billet</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
-        sapien.
+        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. <strong>Aliquam in hendrerit urna.</strong> Pellentesque sit amet sapien.
       </p>
 
       {/* component, that lets user choose amount of tickets */}
@@ -58,10 +57,7 @@ export default function AreaAndAmount() {
         </button>
       </div>
       <div className="flex justify-center">
-        <Button
-          className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black"
-          onClick={reserveTickets}
-        >
+        <Button className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold" onClick={reserveTickets}>
           KØB BILLET
         </Button>
       </div>

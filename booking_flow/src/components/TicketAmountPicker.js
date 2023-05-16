@@ -42,14 +42,14 @@ export function TicketAmountPicker(props) {
 
   return (
     <>
-      <div className="flex">
-        <Button className="text-color-white " variant="text" onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */>
+      <div className="flex items-center">
+        <Button className="font-bold text-5xl rounded-2 border-2 border-solid place-self-center border-color-yellow text-color-blue h-14 font-sans" variant="contained" style={{ backgroundColor: "yellow" }} onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */>
           -
         </Button>
 
-        <p className="mx-10 font-bold text-5xl">{ticketAmount}</p>
+        <p className="mx-16 font-bold text-5xl">{ticketAmount}</p>
 
-        <Button className="text-color-white " variant="text" onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */>
+        <Button className="text-color-blue font-bold text-5xl font-sans rounded-2 border-2 border-solid place-self-center border-color-yellow h-14" variant="text" style={{ backgroundColor: "yellow" }} onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */>
           +
         </Button>
       </div>
@@ -76,8 +76,8 @@ export function TicketAmountPicker(props) {
               }}
             />
           }
-          label={<Typography style={{ fontFamily: "var(--font-josefin" }}>One tent for each person</Typography>}
-          className="text-color-white font-sans"
+          label={<Typography style={{ fontFamily: "var(--font-josefin" }}>One tent for each person?</Typography>}
+          className="flex items-center text-color-white font-sans pt-5"
         />
       </FormGroup>
     </>
