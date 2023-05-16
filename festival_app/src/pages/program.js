@@ -1,7 +1,5 @@
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
+import { TextField } from "@mui/material";
 import { useState } from "react";
 
 export default function Program({ schedule, bands }) {
@@ -9,6 +7,7 @@ export default function Program({ schedule, bands }) {
   console.log(bands);
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedAct, setSelectedAct] = useState(null);
 
   function handleStageClick(stage) {
     setSelectedStage(stage);
@@ -19,16 +18,17 @@ export default function Program({ schedule, bands }) {
     console.log(day);
   }
 
-  // useEffect(() => {
-  //   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
-  // }, []);
-
+  function handleChange(e) {
+      setSelectedAct(e.target.value);
+    console.log(e.target.value);
+  }
   return (
     <div>
       <h1>Program</h1>
+      <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
-      <Schedule schedule={schedule} bands={bands} selectedStage={selectedStage} selectedDay={selectedDay} />
+      <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} />
     </div>
   );
 }
@@ -67,67 +67,61 @@ function FilterbuttonsDay({ schedule, onClick }) {
   );
 }
 
-function Schedule({ schedule, bands, selectedStage, selectedDay }) {
-  // A const, that runs through the bands and matches it witht he act to get their image. Add "style={{backgroundImage}}" and we should have i running. Maybe, it will only show one image, not sure.
-  const backgroundImage = (name) => {
-    console.log(name);
-    console.log("bands", bands);
-    for (let i = 0; i < bands.length; i++) {
-      if (name === bands[i].name) {
-        return bands[i].logo.startsWith("https://") ? `url("${bands[i].logo}"` : `url("https://scratched-bronze-lingonberry.glitch.me/logos/${bands[i].logo}")`;
-      }
-    }
-  };
+function Schedule({ schedule, selectedStage, selectedDay, selectedAct }) {
+
   return (
     <div className="schedule">
       {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
       {Object.keys(schedule)
-        .filter((stage) => !selectedStage || stage === selectedStage)
-        .map((stage) => (
-          <div key={stage}>
+        .filter(stage => !selectedStage || stage === selectedStage)
+        .map(stage => {
+          if(selectedStage === (stage)) { 
+            return <div key={stage}>
+            <ObjectDay
+              schedule={schedule}
+              stage={...schedule[stage]}
+              selectedDay={selectedDay}
+              selectedAct={selectedAct}
+            />
+          </div>} else {return <div key={stage}>
             <h2>{stage}</h2>
-            {/* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */}
-            {Object.keys(schedule[stage])
-              .filter((day) => !selectedDay || day === selectedDay)
-              .map((day) => (
-                <div key={day}>
-                  <h3>{day}</h3>
-                  <div className="bandList grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                    {schedule[stage][day].map((timeslot) =>
-                      timeslot.act === "break" ? (
-                        <></>
-                      ) : (
-                        <>
-                          <div key={`${timeslot.start}-${timeslot.end}`} className="grid grid-cols-2" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
-                            <span className="text-color-white">
-                              {timeslot.start} - {timeslot.end}
-                            </span>
-                            <span className="text-color-white">{timeslot.act}</span>
-                          </div>
-                        </>
-                      )
-                    )}
-                  </div>
-                </div>
-              ))}
+            <ObjectDay
+              schedule={schedule}
+              stage={...schedule[stage]}
+              selectedDay={selectedDay}
+              selectedAct={selectedAct}
+            />
           </div>
-        ))}
+          }
+})}
     </div>
   );
 }
 
-// export async function getServerSideProps() {
-//   const api = "http://localhost:8080/schedule";
-//   const res = await fetch(api);
-//   const data = await res.json();
-//   console.log(data);
+function ObjectDay({stage, selectedDay, selectedAct }) {
+  {
+    /* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */
+  }
+  return Object.keys(stage)
+    .filter(day => !selectedDay || day === selectedDay)
+    .map(day => {
+     if (selectedDay === (day) ){return <div key={day}>
+        
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
+      </div>} else { return <div key={day}>
+        <h3>{day}</h3>
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
+      </div>}
+});
+}
 
-//   return {
-//     props: {
-//       schedule: data,
-//     },
-//   };
-// }
+function ObjectBand({ days, selectedAct }) {
+/*   console.log(Object.values(days)) */
+  return Object.values(days).filter(band => band.act.toLowerCase() !== "break" && (!selectedAct || band.act.toLowerCase().includes(selectedAct))).map(band => (<div key={band.act}>
+  <span>{band.act}</span>
+</div>))
+
+}
 
 export async function getServerSideProps() {
   // const band = context.params.band;
