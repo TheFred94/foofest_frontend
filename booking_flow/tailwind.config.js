@@ -11,16 +11,17 @@ module.exports = {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "logo-navbar": "url('/src/assets/logoOnly.svg')",
       },
     },
 
     colors: {
-      "color-back": "#1D1C29",
+      "color-black": "#1D1C29",
       "color-blue": "#102038",
       "color-white": "#F9F9F9",
       "color-green": "#00B88B",
       "color-purple": "#A836DA",
-      "color-orange": "#E4A74A",
+      "color-yellow": "#F9F01F",
     },
     fontFamily: {
       "font-display": ["Playfair Display", "serif"],
