@@ -2,12 +2,14 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
+import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import { red } from "@mui/material/colors";
+import { IconButton, Snackbar } from "@mui/material";
 
 export default function Program({ schedule, bands }) {
-  console.log(schedule);
-  console.log(bands);
+  // console.log(schedule);
+  // console.log(bands);
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -17,7 +19,7 @@ export default function Program({ schedule, bands }) {
 
   function handleDayClick(day) {
     setSelectedDay(day);
-    console.log(day);
+    // console.log(day);
   }
 
   // useEffect(() => {
@@ -69,16 +71,40 @@ function FilterbuttonsDay({ schedule, onClick }) {
 }
 
 function Schedule({ schedule, bands, selectedStage, selectedDay }) {
+  const [snackOpen, setSnackOpen] = useState([false, "", ""]);
   // A const, that runs through the bands and matches it witht he act to get their image. Add "style={{backgroundImage}}" and we should have i running. Maybe, it will only show one image, not sure.
   const backgroundImage = (name) => {
-    console.log(name);
-    console.log("bands", bands);
+    // console.log(name);
+    // console.log("bands", bands);
     for (let i = 0; i < bands.length; i++) {
       if (name === bands[i].name) {
         return bands[i].logo.startsWith("https://") ? `url("${bands[i].logo}"` : `url("https://scratched-bronze-lingonberry.glitch.me/logos/${bands[i].logo}")`;
       }
     }
   };
+
+  function LocalStorageFavourite(e) {
+    console.log(e);
+    if (e.target.checked) {
+      setSnackOpen([true, e.target.value, `${e.target.value} has been added to favourites.`]);
+    }
+  }
+
+  function closeSnack() {
+    setSnackOpen([false, "", ""]);
+  }
+
+  const action = (
+    <>
+      <Button color="#fff" size="small">
+        See Personal Program
+      </Button>
+      <IconButton size="small" aria-label="close" color="inherit">
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+
   return (
     <div className="schedule">
       {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
@@ -102,6 +128,8 @@ function Schedule({ schedule, bands, selectedStage, selectedDay }) {
                           <div key={`${timeslot.start}-${timeslot.end}`} className="relative grid grid-rows-2 items-start justify-items-center bg-cover bg-no-repeat h-96 pt-20 pb-110 px-8" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
                             <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-white p-5 rounded-full flex items-center justify-center">
                               <Checkbox
+                                onClick={LocalStorageFavourite}
+                                value={timeslot.act}
                                 classNmae="p-0"
                                 icon={<FavoriteBorder />}
                                 checkedIcon={<Favorite />}
@@ -124,6 +152,7 @@ function Schedule({ schedule, bands, selectedStage, selectedDay }) {
               ))}
           </div>
         ))}
+      <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[2]} action={action} />;
     </div>
   );
 }
