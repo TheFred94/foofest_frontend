@@ -3,6 +3,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import { useState } from "react";
+import { red } from "@mui/material/colors";
 
 export default function Program({ schedule, bands }) {
   console.log(schedule);
@@ -91,18 +92,29 @@ function Schedule({ schedule, bands, selectedStage, selectedDay }) {
               .filter((day) => !selectedDay || day === selectedDay)
               .map((day) => (
                 <div key={day}>
-                  <h3>{day}</h3>
-                  <div className="bandList grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                  <h3>{day.toUpperCase(9)}</h3>
+                  <div className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
                     {schedule[stage][day].map((timeslot) =>
                       timeslot.act === "break" ? (
                         <></>
                       ) : (
                         <>
-                          <div key={`${timeslot.start}-${timeslot.end}`} className="grid grid-cols-2" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
-                            <span className="text-color-white">
+                          <div key={`${timeslot.start}-${timeslot.end}`} className="relative grid grid-rows-2 items-start justify-items-center bg-cover bg-no-repeat h-96 pt-20 pb-110 px-8" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
+                            <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-white p-5 rounded-full flex items-center justify-center">
+                              <Checkbox
+                                classNmae="p-0"
+                                icon={<FavoriteBorder />}
+                                checkedIcon={<Favorite />}
+                                color="error"
+                                sx={{
+                                  "& .MuiSvgIcon-root": { fontSize: 30 },
+                                }}
+                              />
+                            </div>
+                            <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75">{timeslot.act}</span>
+                            <span className="text-color-blue px-6 py-3 text-2xl text-center bg-color-yellow-75">
                               {timeslot.start} - {timeslot.end}
                             </span>
-                            <span className="text-color-white">{timeslot.act}</span>
                           </div>
                         </>
                       )
