@@ -28,9 +28,7 @@ export function AreaListItem(props) {
       bookingDetails.amount <= area.available ? updateBookingInformation() : handleOpen();
     } else if (bookingDetails.oneTentForEach === false) {
       // Checks if there is enough spots available
-      (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
-        ? updateBookingInformation()
-        : handleOpen();
+      (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available ? updateBookingInformation() : handleOpen();
     }
   }
   // styling for modal
@@ -61,9 +59,7 @@ export function AreaListItem(props) {
     if (bookingDetails.oneTentForEach === true) {
       return bookingDetails.amount <= area.available ? "text-color-white" : "text-color-purple";
     } else if (bookingDetails.oneTentForEach === false) {
-      return (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available
-        ? "text-color-white"
-        : "text-color-purple";
+      return (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available ? "text-color-white" : "text-color-purple";
     }
   }
 
@@ -95,7 +91,7 @@ export function AreaListItem(props) {
         </Fade>
       </Modal>
 
-      <li className="m-2.5 px-5 py-2 bg-color-back cursor-pointer" onClick={checkTicketAndArea}>
+      <li className="bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 px-5 py-2 bg-color-back cursor-pointer" onClick={checkTicketAndArea}>
         <h3>{area.area}</h3>
         <p
           className={
