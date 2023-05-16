@@ -19,7 +19,11 @@ module.exports = {
       "color-purple": "#A836DA",
       "color-purple-50": "rgba(168,54,218,0.5)",
       "color-yellow": "#F9F01F",
+<<<<<<< HEAD
       "color-yellow-75": "rgba(249,240,31,0.75)",
+=======
+      "color-orange": "#E4A74A",
+>>>>>>> 9a8da2da17717b571d315a6950827b8c494f9adc
     },
     fontFamily: {
       "font-display": ["Playfair Display", "serif"],
