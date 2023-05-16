@@ -93,14 +93,20 @@ function Schedule({ schedule, bands, selectedStage, selectedDay }) {
                 <div key={day}>
                   <h3>{day}</h3>
                   <div className="bandList grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                    {schedule[stage][day].map((timeslot) => (
-                      <div key={`${timeslot.start}-${timeslot.end}`} className="grid grid-cols-2" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
-                        <span>
-                          {timeslot.start} - {timeslot.end}
-                        </span>
-                        <span>{timeslot.act}</span>
-                      </div>
-                    ))}
+                    {schedule[stage][day].map((timeslot) =>
+                      timeslot.act === "break" ? (
+                        <></>
+                      ) : (
+                        <>
+                          <div key={`${timeslot.start}-${timeslot.end}`} className="grid grid-cols-2" style={{ backgroundImage: backgroundImage(timeslot.act) }}>
+                            <span className="text-color-white">
+                              {timeslot.start} - {timeslot.end}
+                            </span>
+                            <span className="text-color-white">{timeslot.act}</span>
+                          </div>
+                        </>
+                      )
+                    )}
                   </div>
                 </div>
               ))}
