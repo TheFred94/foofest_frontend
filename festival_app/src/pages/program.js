@@ -96,7 +96,7 @@ function Schedule({ schedule, bands, selectedStage, selectedDay }) {
 
   const action = (
     <>
-      <Button color="#fff" size="small">
+      <Button color="success" size="small">
         See Personal Program
       </Button>
       <IconButton size="small" aria-label="close" color="inherit">
