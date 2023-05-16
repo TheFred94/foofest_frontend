@@ -80,8 +80,8 @@ export default function Product({ bandData, scheduleData }) {
       <Head>
         <title>{bandData.name}</title>
       </Head>
-      <div className="relative aspect-video object-contain">
-        <Anchor href="/" className="absolute left-5 top-5 z-50">
+      <div className="relative aspect-video object-contain grid">
+        <Anchor href="/" className="absolute left-5 top-5 z-40">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#F9F01F" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
             <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
           </svg>
@@ -89,11 +89,11 @@ export default function Product({ bandData, scheduleData }) {
 
         {matchingAct.cancelled === true ? (
           <div className="grid items-center justify-items-center ">
-            <h2 className="z-50 grid col-start-1 row-start-1 text-color-orange">Cancelled</h2>
-            <img src={logoUrl} alt={bandData.bio} className="filter grayscale blur-sm object-cover w-full col-start-1 row-start-1" />
+            <h2 className="w-full text-center bg-color-white z-40 grid col-start-1 row-start-1 text-color-orange">Cancelled</h2>
+            <img src={logoUrl} alt={bandData.bio} className="filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video " />
           </div>
         ) : (
-          <img src={logoUrl} alt={bandData.bio} className="object-cover w-full" />
+          <img src={logoUrl} alt={bandData.bio} className="w-full aspect-video object-contain" />
         )}
       </div>
       <h3 className="text-4xl pt-2 pb-3 ">{bandData.name}</h3>
