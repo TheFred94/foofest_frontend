@@ -1,9 +1,11 @@
 import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 import { useState } from "react";
 
 export default function Program({ schedule }) {
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedAct, setSelectedAct] = useState(null);
 
   function handleStageClick(stage) {
     setSelectedStage(stage);
@@ -13,12 +15,18 @@ export default function Program({ schedule }) {
     setSelectedDay(day);
     console.log(day);
   }
+
+  function handleChange(e) {
+      setSelectedAct(e.target.value);
+    console.log(e.target.value);
+  }
   return (
     <div>
       <h1>Program</h1>
+      <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
-      <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} />
+      <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} />
     </div>
   );
 }
@@ -57,7 +65,8 @@ function FilterbuttonsDay({ schedule, onClick }) {
   );
 }
 
-function Schedule({ schedule, selectedStage, selectedDay }) {
+function Schedule({ schedule, selectedStage, selectedDay, selectedAct }) {
+
   return (
     <div className="schedule">
       {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
@@ -66,24 +75,54 @@ function Schedule({ schedule, selectedStage, selectedDay }) {
         .map(stage => (
           <div key={stage}>
             <h2>{stage}</h2>
-            {/* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */}
-            {Object.keys(schedule[stage])
-              .filter(day => !selectedDay || day === selectedDay)
-              .map(day => (
-                <div key={day}>
-                  <h3>{day}</h3>
-                  {schedule[stage][day].map(timeslot => (
-                    <div key={`${timeslot.start}-${timeslot.end}`}>
-                      <span>{timeslot.start}</span> - <span>{timeslot.end}</span>
-                      <span>{timeslot.act}</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
+            <ObjectDay
+              schedule={schedule}
+              stage={...schedule[stage]}
+              selectedDay={selectedDay}
+              selectedAct={selectedAct}
+            />
           </div>
         ))}
     </div>
   );
+}
+
+function ObjectDay({schedule, stage, selectedDay, selectedAct }) {
+
+
+  {
+    /* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */
+  }
+  return Object.keys(stage)
+    .filter(day => !selectedDay || day === selectedDay)
+    .map(day => (
+      <div key={day}>
+        <h3>{day}</h3>
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} />
+      </div>
+    ));
+}
+
+function ObjectBand({ days, selectedAct }) {
+  console.log(Object.values(days))
+  return Object.values(days).filter(band => !selectedAct || `${band.act.toLowerCase()}`.includes(selectedAct)).map(band => (<div key={`${band.start}-${band.end}`}>
+  <span>{band.act}</span>
+</div>))
+
+/*   return days.map(band => (
+      <div key={`${band.start}-${band.end}`}>
+        <span>{band.act}</span>
+      </div>
+    )); */
+
+  /*   {
+    days.map(timeslot => (
+      <div key={`${timeslot.start}-${timeslot.end}`}>
+        <span>{timeslot.act}</span>
+      </div>
+    ));
+  }
+  console.log(e); */
 }
 
 export async function getServerSideProps() {
