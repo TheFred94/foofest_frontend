@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { Typography } from "@mui/material";
 
 export function TicketAmountPicker(props) {
   // Creates const variables and sets defaultState
@@ -65,14 +66,17 @@ export function TicketAmountPicker(props) {
                   "&.Mui-checked": {
                     color: "yellow",
                   },
-                  "&.MuiTouchRippe-root": {
+                  ".MuiTouchRippe-root": {
                     color: "yellow",
+                  },
+                  "&.MuiCheckbox-root": {
+                    fontFamily: "var(--font-josefin)",
                   },
                 },
               }}
             />
           }
-          label="One tent for each person"
+          label={<Typography style={{ fontFamily: "var(--font-josefin" }}>One tent for each person</Typography>}
           className="text-color-white font-sans"
         />
       </FormGroup>
