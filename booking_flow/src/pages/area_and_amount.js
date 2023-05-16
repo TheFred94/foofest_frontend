@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { BookingInformation } from "./_app";
 import ChooseAmount from "@/components/ChooseAmount";
 import { ChooseArea } from "../components/ChooseArea";
-
+import Button from "@mui/material/Button";
 export default function AreaAndAmount() {
   // States
 
@@ -34,6 +34,9 @@ export default function AreaAndAmount() {
           Log bookingDetails
         </button>
       </div>
+      <Button className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black">
+        KØB BILLET
+      </Button>
     </main>
   );
 }
