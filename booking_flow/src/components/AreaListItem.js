@@ -116,20 +116,21 @@ export function AreaListItem(props) {
       </Modal>
 
       <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm" onClick={checkTicketAndArea}>
-        <div>
-          <h3 className={` duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
+        <div className="flex justify-between mr-0">
+          <h3 className={` text-lg self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
           <RadioGroup aria-label="area" name="area" value={bookingDetails.area} onChange={updateBookingInformation}>
             <FormControlLabel
               value={area.area}
               control={
                 <Radio
                   sx={{
+                    m: 0,
                     "& .MuiSvgIcon-root": {
                       color: "yellow",
-                      "&.Mui-checked": {
+                      "& .Mui-checked": {
                         color: "yellow",
                       },
-                      ".MuiTouchRippe-root": {
+                      "&.MuiTouchRippe-root": {
                         color: "yellow",
                       },
                     },

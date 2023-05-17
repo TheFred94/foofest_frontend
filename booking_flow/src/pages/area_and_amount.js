@@ -34,9 +34,9 @@ export default function AreaAndAmount() {
 
   return (
     <main>
-      <h1 className="text-center"> Køb billet</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. <strong>Aliquam in hendrerit urna.</strong> Pellentesque sit amet sapien.
+      <h1 className="text-center mx-4 mt-10"> Purchase ticket</h1>
+      <p className="pt-10 pb-10 mx-4">
+        With the mesmerizing <strong>Northern Lights</strong> as your backdrop, get ready to lose yourself to the beats of the loudest music that's sure to get your heart racing.
       </p>
 
       {/* component, that lets user choose amount of tickets */}

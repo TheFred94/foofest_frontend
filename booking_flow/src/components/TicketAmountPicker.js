@@ -55,7 +55,7 @@ export function TicketAmountPicker(props) {
       </div>
 
       {/* This formGroup contains, the checkbox, that determines if everyone should be able to have their own tent. */}
-      <FormGroup>
+      <FormGroup className="flex items-center">
         <FormControlLabel
           onClick={tentForEach}
           control={
