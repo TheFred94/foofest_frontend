@@ -18,6 +18,8 @@ module.exports = {
       "color-green": "#00B88B",
       "color-purple": "#A836DA",
       "color-yellow": "#F9F01F",
+      "color-orange": "#E4A74A",
+      "color-red": "#EB8686",
       "color-opacity-20": "rgba(255, 255, 255, 0.2)",
       "color-opacity-10": "rgba(255, 255, 255, 0.1)",
     },

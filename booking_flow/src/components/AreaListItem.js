@@ -56,13 +56,26 @@ export function AreaListItem(props) {
   // This function helps to indicate whether an area is available based on the amount of tickets you have chosen.
   // if the area is available then the text is white, else it's purple
   function areaAvailable() {
+    const availableSpots = area.available;
+    let colorClass = "text-color-red"; // default color is red
+    if (availableSpots > 0 && availableSpots <= 49) {
+      colorClass = "text-color-orange"; // set color to orange if available spots are between 1 and 49
+    } else if (availableSpots >= 50 && availableSpots <= 100) {
+      colorClass = "text-color-yellow"; // set color to yellow if available spots are between 50 and 100
+    } else if ((availableSpots) => 100) {
+      colorClass = "text-color-green"; // set color to green if available spots are more than 100
+    }
+
+    // return the color class based on the available spots and ticket selection
     if (bookingDetails.oneTentForEach === true) {
-      return bookingDetails.amount <= area.available ? "text-color-white" : "text-color-purple";
+      return bookingDetails.amount <= availableSpots ? colorClass + " text-color-green" : "text-color-red";
     } else if (bookingDetails.oneTentForEach === false) {
-      return (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available ? "text-color-white" : "text-color-purple";
+      return (bookingDetails.amount < 3 && availableSpots > bookingDetails.amount) || bookingDetails.amount / 3 <= availableSpots ? colorClass + " text-color-green" : "text-color-red";
     }
   }
 
+  const areaStatus = areaAvailable(area, bookingDetails);
+  const areaClass = areaStatus.class + (areaStatus.available ? "" : " text-color-gray");
   return (
     <>
       {/* modal from mui */}
@@ -81,11 +94,10 @@ export function AreaListItem(props) {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography style={{ fontFamily: "var(--font-josefin)" }} id="transition-modal-title" variant="h6" component="h2">
+            <Typography id="transition-modal-title" variant="h6" component="h2">
               Der er ikke nok ledige pladser!
             </Typography>
             <Typography
-              style={{ fontFamily: "var(--font-josefin)" }}
               id="transition-modal-description"
               sx={{
                 mt: 2,
@@ -103,14 +115,7 @@ export function AreaListItem(props) {
         <div className="flex justify-between mt-auto  ">
           <p className="self-center">spots left</p>
           <div className="font-sans">
-            <span
-              className={
-                // class is based on return of areaAvailable function
-                areaAvailable() + "font-bold text-2xl text-color-white"
-              }
-            >
-              {area.available}
-            </span>
+            <span className={"font-bold text-2xl " + areaAvailable()}>{area.available}</span>
           </div>
         </div>
       </section>
