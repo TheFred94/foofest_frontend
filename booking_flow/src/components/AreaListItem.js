@@ -110,10 +110,10 @@ export function AreaListItem(props) {
       </Modal>
 
       <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 px-5 py-2 bg-color-back cursor-pointer h-28" onClick={checkTicketAndArea}>
-        <h3>{area.area}</h3>
+        <h3 className={`self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
 
         <div className="flex justify-between mt-auto  ">
-          <p className="self-center">spots left</p>
+          <p className={`self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>spots left</p>
           <div className="font-sans">
             <span className={"font-bold text-2xl " + areaAvailable()}>{area.available}</span>
           </div>
