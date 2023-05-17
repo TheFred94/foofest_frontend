@@ -23,7 +23,7 @@ export default function AreaAndAmount() {
     const json = await response.json();
     console.log(json);
     updateBookingDetails(json.id);
-    router.push(`/addOns`);
+    router.push(`/ticket_type_and_add_on`);
   }
   function updateBookingDetails(reservation_id) {
     setBookingDetails((prev) => ({
