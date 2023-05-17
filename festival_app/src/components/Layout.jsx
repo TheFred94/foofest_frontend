@@ -5,7 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      <div className="bg-gradient-to-b from-color-black to-color-blue">
+      <div className="m-auto">
         {children}
         <footer>Footer</footer>
       </div>
