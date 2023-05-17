@@ -3,15 +3,16 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField, Checkbox, Snackbar, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Program({ schedule, bands }) {
-  console.log(schedule);
-  console.log(bands);
+  // console.log(schedule);
+  // console.log(bands);
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedAct, setSelectedAct] = useState(null);
   const [snackOpen, setSnackOpen] = useState([false, ""]);
+  const [favourites, setFavourites] = useState([])
 
   function handleStageClick(stage) {
     setSelectedStage(stage);
@@ -34,11 +35,14 @@ const LocalStorageFavourite = (e) => {
     // console.log(e)
     if (snackOpen[0] === true) {
       closeSnack
+      CheckFavourites(e.target.value, e.target.checked)
       sleep(500).then(() => {
-      e.target.checked === true ?
-      setSnackOpen([true, `${e.target.value} has been added to favourites`])
-      :
-      setSnackOpen([true, `${e.target.value} has been removed from favourites`])
+      if(e.target.checked === true) {
+        setSnackOpen([true, `${e.target.value} has been added to favourites`])
+        // localStorage.setItem("favourites", JSON.stringify(favourites));
+      } else {
+        setSnackOpen([true, `${e.target.value} has been removed from favourites`])
+      }
     })
       } else if (snackOpen[0] === false) {
       e.target.checked === true ?
@@ -50,6 +54,25 @@ const LocalStorageFavourite = (e) => {
 
     function closeSnack() {
     setSnackOpen([false, ""]);
+  }
+
+  function CheckFavourites(band, i) {
+    if (i === true) {
+      if (favourites.length === 0) {
+        setFavourites([band])
+      } else {
+        setFavourites([...favourites, band])
+      }
+      console.log(favourites)
+    } else {
+      if (favourites.length <= 1) {
+        setFavourites([])
+      } else {
+        const newFavourites = favourites.filter(fav => fav != band)
+        setFavourites(newFavourites)
+      }
+      console.log(favourites)
+    }
   }
 
     const action = (
@@ -221,22 +244,22 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite }) {
 
     <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-white p-5 rounded-full flex items-center justify-center">
       <Checkbox
-      onClick={LocalStorageFavourite}
-                    value={band.act}
-                                className="p-0"
-                                icon={<FavoriteBorder />}
-                                checkedIcon={<Favorite />}
-                                color="error"
-                                sx={{
-                                  "& .MuiSvgIcon-root": { fontSize: 30 },
-                                }}
-                              />
-                            </div>
-                            <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75">{band.act}</span>
-                            <span className="text-color-blue px-6 py-3 text-2xl text-center bg-color-yellow-75">
-                              {band.start} - {band.end}
-                            </span>
-                          </div>
+        onClick={LocalStorageFavourite}
+        value={band.act}
+        className="p-0"
+        icon={<FavoriteBorder />}
+        checkedIcon={<Favorite />}
+        color="error"
+        sx={{
+          "& .MuiSvgIcon-root": { fontSize: 30 },
+            }}
+      />
+      </div>
+      <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75">{band.act}</span>
+      <span className="text-color-blue px-6 py-3 text-2xl text-center bg-color-yellow-75">
+      {band.start} - {band.end}
+      </span>
+      </div>
 ))
 
 }
