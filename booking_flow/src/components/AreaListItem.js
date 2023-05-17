@@ -81,27 +81,39 @@ export function AreaListItem(props) {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="transition-modal-title" variant="h6" component="h2">
+            <Typography style={{ fontFamily: "var(--font-josefin)" }} id="transition-modal-title" variant="h6" component="h2">
               Der er ikke nok ledige pladser!
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              For at købe billetter til dette område bedes du justere på antal a billetter
+            <Typography
+              style={{ fontFamily: "var(--font-josefin)" }}
+              id="transition-modal-description"
+              sx={{
+                mt: 2,
+              }}
+            >
+              For at købe billetter til dette område bedes du justere på antal af billetter
             </Typography>
           </Box>
         </Fade>
       </Modal>
 
-      <li className="bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 px-5 py-2 bg-color-back cursor-pointer" onClick={checkTicketAndArea}>
+      <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 px-5 py-2 bg-color-back cursor-pointer h-28" onClick={checkTicketAndArea}>
         <h3>{area.area}</h3>
-        <p
-          className={
-            // class is based on return of areaAvailable function
-            areaAvailable()
-          }
-        >
-          {area.available} spots left
-        </p>
-      </li>
+
+        <div className="flex justify-between mt-auto  ">
+          <p className="self-center">spots left</p>
+          <div className="font-sans">
+            <span
+              className={
+                // class is based on return of areaAvailable function
+                areaAvailable() + "font-bold text-2xl text-color-white"
+              }
+            >
+              {area.available}
+            </span>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
