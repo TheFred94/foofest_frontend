@@ -64,7 +64,7 @@ const LocalStorageFavourite = (e) => {
   );
 
   return (
-    <div className="bg-color-orange">
+    <div className="bg-gradient-to-b from-color-black to-color-blue">
       <h1>Program</h1>
       <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
@@ -158,24 +158,46 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
 }
 
 function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourite }) {
-  {
-    /* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */
+
+  const fullDayName = (day) => {
+    if (day === "mon") {
+      return "Monday"
+    } else if (day === "tue") {
+      return "Tuesday"
+  } else if (day === "wed") {
+      return "Wednesday"
+  } else if (day === "thu") {
+      return "Thursday"
+  } else if (day === "fri") {
+      return "It's Friday, Friday, Gotta get down on Friday"
+  } else if (day === "sat") {
+      return "Saturday"
+  } else if (day === "sun") {
+      return "Sunday"
   }
+}
+
+  // {
+  //   /* Denne function gør at vi kan filtrere på hvilken dag der skal vises program for */
+  // }
   return Object.keys(stage)
     .filter(day => !selectedDay || day === selectedDay)
     .map(day => {
-     if (selectedDay === (day) ){return <div key={day}>
-        <h3>{day}</h3>
+     if (selectedDay === (day) ){
+      return <div key={day}>
+        <h3>{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} />
         </div>
-      </div>} else { return <div key={day}>
-        <h3>{day}</h3>
+      </div>
+    } else { 
+      return <div key={day}>
+        <h3>{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} />
         </div>
-      </div>}
-});
+      </div>
+}});
 }
 
 function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite }) {
