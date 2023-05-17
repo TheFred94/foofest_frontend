@@ -109,8 +109,10 @@ export function AreaListItem(props) {
         </Fade>
       </Modal>
 
-      <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 px-5 py-2 bg-color-back cursor-pointer h-28" onClick={checkTicketAndArea}>
-        <h3 className={`self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
+      <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm" onClick={checkTicketAndArea}>
+        <div>
+          <h3 className={` duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
+        </div>
 
         <div className="flex justify-between mt-auto  ">
           <p className={`self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>spots left</p>
