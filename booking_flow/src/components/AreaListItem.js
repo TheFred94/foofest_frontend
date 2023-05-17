@@ -5,6 +5,11 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import FormControl from "@mui/material/FormControl";
 
 export function AreaListItem(props) {
   // creates variables and sets defaultState
@@ -15,6 +20,7 @@ export function AreaListItem(props) {
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
   // state for modal
   const [open, setOpen] = useState(false);
+  console.log(area.area);
 
   // creates functions to handle modal
   const handleOpen = () => setOpen(true);
@@ -62,7 +68,7 @@ export function AreaListItem(props) {
       colorClass = "text-color-orange"; // set color to orange if available spots are between 1 and 49
     } else if (availableSpots >= 50 && availableSpots <= 100) {
       colorClass = "text-color-yellow"; // set color to yellow if available spots are between 50 and 100
-    } else if ((availableSpots) => 100) {
+    } else if (availableSpots > 100) {
       colorClass = "text-color-green"; // set color to green if available spots are more than 100
     }
 
@@ -112,6 +118,26 @@ export function AreaListItem(props) {
       <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm" onClick={checkTicketAndArea}>
         <div>
           <h3 className={` duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
+          <RadioGroup aria-label="area" name="area" value={bookingDetails.area} onChange={updateBookingInformation}>
+            <FormControlLabel
+              value={area.area}
+              control={
+                <Radio
+                  sx={{
+                    "& .MuiSvgIcon-root": {
+                      color: "yellow",
+                      "&.Mui-checked": {
+                        color: "yellow",
+                      },
+                      ".MuiTouchRippe-root": {
+                        color: "yellow",
+                      },
+                    },
+                  }}
+                />
+              }
+            ></FormControlLabel>
+          </RadioGroup>
         </div>
 
         <div className="flex justify-between mt-auto  ">
