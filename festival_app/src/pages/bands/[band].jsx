@@ -110,7 +110,7 @@ export default function Product({ bandData, scheduleData }) {
               <span className="font-semibold"> {matchingAct.day}</span>, {matchingAct.start}
             </p>
 
-            <span className="font-thin text-lg text-color-white">{matchingAct.stage}</span>
+            <span className="font-thin font-sans text-xl text-color-white">{matchingAct.stage}</span>
           </section>
         )}
         <section className="pb-10">
