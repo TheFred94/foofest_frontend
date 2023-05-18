@@ -1,8 +1,9 @@
 import Head from "next/head";
-import Anchor from "@/components/Anchor";
 import Button from "@mui/material/Button";
 import { Spotify } from "@/components/svgs";
 import { Youtube } from "@/components/svgs";
+import { ArrowLeft } from "@/components/svgs";
+
 import "material-symbols";
 
 export default function Product({ bandData, scheduleData }) {
@@ -84,8 +85,8 @@ export default function Product({ bandData, scheduleData }) {
       </Head>
       <div className="max-w-screen-xl m-auto">
         <div className="relative aspect-video object-contain grid ">
-          <Button onClick={() => goBack()} className="absolute left-5 top-5 z-40">
-            <span class="material-symbols-outlined">arrow_circle_left</span>
+          <Button onClick={() => goBack()} className="absolute left-1 top-1 z-40">
+            <ArrowLeft className="fill-color-yellow w-10" />
           </Button>
 
           {matchingAct.cancelled === true ? (
