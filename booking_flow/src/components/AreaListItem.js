@@ -5,12 +5,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl";
-import { yellow } from "@mui/material/colors";
 
 export function AreaListItem(props) {
   // creates variables and sets defaultState
