@@ -19,7 +19,6 @@ export function GreenCamp() {
   }
 
   function updateBookingDetails() {
-    console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
       greenCamp: isChecked,
@@ -32,10 +31,6 @@ export function GreenCamp() {
   return (
     <>
       <div className="flex justify-around m-10">
-        {/* <h3 onClick={changeIsChecked}>GreenCamp</h3>
-
-        <Checkbox onChange={changeIsChecked} checked={isChecked}></Checkbox> */}
-
         <FormGroup className="flex items-center">
           <FormControlLabel
             control={

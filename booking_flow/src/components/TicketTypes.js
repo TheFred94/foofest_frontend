@@ -10,12 +10,10 @@ export function TicketTypes() {
   // This function is setting the ticket type, as well as making sure the right radio button is chosen
   function pickTicketType(type) {
     setTicketType(type);
-    console.log("pickTicketType called");
   }
 
   // This function updates the bookingInformation, so that it  also contains the clicked area
   function updateBookingDetails() {
-    console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
       ticketType: ticketType,

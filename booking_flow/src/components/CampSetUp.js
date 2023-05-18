@@ -10,13 +10,10 @@ export function CampSetUp() {
   const [isChecked, setIsChecked] = useState(false);
 
   function changeIsChecked() {
-    console.log("changeIsChecked called and isChecked is:", isChecked);
-
     isChecked ? setIsChecked(false) : setIsChecked(true);
   }
 
   function updateBookingDetails() {
-    console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
       campSetUp: isChecked,

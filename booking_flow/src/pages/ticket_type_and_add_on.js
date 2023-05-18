@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { BookingInformation } from "./_app";
 import ChooseAmount from "@/components/ChooseAmount";
 import { ChooseArea } from "../components/ChooseArea";
@@ -15,7 +15,10 @@ export default function TicketTypeAndAddOn() {
   return (
     <>
       <main>
-        <h2 className="text-center"> {bookingInformation.amount > 1 ? "Regular og VIP tickets" : "Regular or VIP ticket"}</h2>
+        <h2 className="text-center mx-4 mt-10">
+          {" "}
+          {bookingInformation.amount > 1 ? "Regular og VIP tickets" : "Regular or VIP ticket"}
+        </h2>
 
         <TicketTypes />
 
