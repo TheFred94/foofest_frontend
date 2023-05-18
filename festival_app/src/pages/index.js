@@ -40,7 +40,7 @@ export default function MyApp({ bands }) {
           </div>
         </div>
         <Button className="mt-20 mb-60 rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-20 text-color-yellow hover:bg-color-yellow hover:text-color-black">
-          <Anchor href="/bands">SEE ALL ARTIST</Anchor>
+          <Anchor href="/program">SEE ALL ARTIST</Anchor>
         </Button>
         <div className="m-auto h-0.5 w-4/5 max-w-3/4 bg-color-white"></div>
       </div>
@@ -65,6 +65,7 @@ function BandList1(props) {
   const bandsToShow = props.bands.slice(0, 2);
   return bandsToShow.map(band => <Band key={band.name} {...band} />);
 }
+
 function BandList2(props) {
   const bandsToShow = props.bands.slice(2, 5);
   return bandsToShow.map(band => <Band2 key={band.name} {...band} />);
@@ -78,7 +79,7 @@ function BandList3(props) {
 function Band(band) {
   return (
     <>
-      <h2 className="text-center text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
+      <h2 className="text-center uppercase text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
         <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
       </h2>
     </>
@@ -87,7 +88,7 @@ function Band(band) {
 function Band2(band) {
   return (
     <>
-      <h3 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl text-color-white">
+      <h3 className="text-center uppercase text-xl sm:text-2xl md:text-4xl lg:text-5xl text-color-white">
         <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
       </h3>
     </>
@@ -96,7 +97,7 @@ function Band2(band) {
 function Band3(band) {
   return (
     <>
-      <h3 className="text-center text-base sm:text-2xl md:text-4xl lg:text-4xl text-color-white">
+      <h3 className="text-center uppercase text-base sm:text-2xl md:text-4xl lg:text-4xl text-color-white">
         <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
       </h3>
     </>

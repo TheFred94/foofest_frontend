@@ -13,7 +13,7 @@ function Navbar() {
       </Link>
       <div className="flex justify-center">
         <Button className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black">
-          KØB BILLET
+          GET TICKETS
         </Button>
         <TemporaryDrawer className="flex" />
       </div>
