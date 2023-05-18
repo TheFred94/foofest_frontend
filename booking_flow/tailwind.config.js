@@ -21,6 +21,8 @@ module.exports = {
       "color-orange": "#E4A74A",
       "color-red": "#EB8686",
       "color-gray": "#969696",
+      "color-purple": "rgba(168, 54, 218, 0.38)",
+      "color-teal": "rgba(33, 130, 143, 1)",
       "color-opacity-40": "rgba(255, 255, 255, 0.1)",
       "color-opacity-20": "rgba(255, 255, 255, 0.2)",
       "color-opacity-10": "rgba(255, 255, 255, 0.1)",
