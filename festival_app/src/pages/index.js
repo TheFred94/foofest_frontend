@@ -78,7 +78,7 @@ function BandList3(props) {
 function Band(band) {
   return (
     <>
-      <h2 className="text-center text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
+      <h2 className="text-center uppercase text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
         <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
       </h2>
     </>
@@ -87,7 +87,7 @@ function Band(band) {
 function Band2(band) {
   return (
     <>
-      <h3 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl text-color-white">
+      <h3 className="text-center uppercase text-xl sm:text-2xl md:text-4xl lg:text-5xl text-color-white">
         <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
       </h3>
     </>
@@ -96,7 +96,7 @@ function Band2(band) {
 function Band3(band) {
   return (
     <>
-      <h3 className="text-center text-base sm:text-2xl md:text-4xl lg:text-4xl text-color-white">
+      <h3 className="text-center uppercase text-base sm:text-2xl md:text-4xl lg:text-4xl text-color-white">
         <Anchor href={`/bands/${band.slug}`}>{band.name}</Anchor>
       </h3>
     </>
