@@ -18,6 +18,7 @@ export function AreaListItem(props) {
   const area = props.area;
   // sets state of bookingDetails to our context(BookingInformation).
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
+  const initialArea = bookingDetails.area || "";
   // state for modal
   const [open, setOpen] = useState(false);
   console.log(area.area);
@@ -51,7 +52,7 @@ export function AreaListItem(props) {
   };
 
   // This function updates the bookingInformation, so that it  also contains the clicked area
-  function updateBookingInformation() {
+  function updateBookingInformation(event) {
     // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
@@ -118,7 +119,7 @@ export function AreaListItem(props) {
       <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm" onClick={checkTicketAndArea}>
         <div className="flex justify-between mr-0">
           <h3 className={` text-lg self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
-          <RadioGroup aria-label="area" name="area" value={bookingDetails.area} onChange={updateBookingInformation}>
+          <RadioGroup aria-label="area" name="area" value={initialArea} onChange={updateBookingInformation}>
             <FormControlLabel
               value={area.area}
               control={
