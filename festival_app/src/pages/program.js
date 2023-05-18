@@ -131,8 +131,8 @@ const LocalStorageFavourite = (e) => {
   }
 
   return (
-    <div className="max-w-screen-xl m-auto bg-gradient-to-b from-color-black to-color-blue">
-      <h1>Program</h1>
+    <div className="max-w-screen-xl my-32 m-auto bg-gradient-to-b from-color-black to-color-blue">
+      <h1 className="uppercase text-center text-9xl">Program</h1>
       <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
@@ -214,7 +214,7 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
           </div>} else {
 /* --------------------------------------- */
             return <div key={stage}>
-            <h2>{stage}</h2>
+            <h2 className="uppercase text-8xl text-center my-20 mt-40">{stage}</h2>
             <ObjectDay
               schedule={schedule}
               stage={...schedule[stage]}
@@ -260,7 +260,7 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
 {/* --------------------------------------- */}
      if (selectedDay === (day) ){
       return <div  key={day}>
-        <h3>{fullDayName(day)}</h3>
+        <h3 className="text-5xl uppercase text-center my-16" >{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3 ">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
@@ -268,7 +268,7 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
     } else { 
  /* --------------------------------------- */
       return <div key={day}>
-        <h3 >{fullDayName(day)}</h3>
+        <h3 className="text-5xl uppercase text-center mt-28 mb-14" >{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
