@@ -51,7 +51,6 @@ export default function PersonalProgram({ schedule }) {
       <Head>
         <title>Personal Program overview</title>
       </Head>
-      <Navbar />
       <main className="h-screen bg-color-green p-10">
         <h1 className="text text-color-black text-center mb-10">Your personal program</h1>
         <h3 className="text-center text-color-black">We collected all of your favorite bands in your personal program, so you can keep track of when and where they play.</h3>

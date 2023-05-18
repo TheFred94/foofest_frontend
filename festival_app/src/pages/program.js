@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CloseIcon from "@mui/icons-material/Close";
+import Anchor from "@/components/Anchor";
 import { TextField, Checkbox, Snackbar, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -102,9 +103,11 @@ const LocalStorageFavourite = (e) => {
 
     const action = (
     <>
+    <Anchor href="personalprogram">
       <Button color="success" size="small">
         See Personal Program
       </Button>
+    </Anchor>
       <IconButton size="small" aria-label="close" color="inherit">
         <CloseIcon fontSize="small" />
       </IconButton>
