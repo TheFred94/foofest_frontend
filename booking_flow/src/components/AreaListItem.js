@@ -116,7 +116,7 @@ export function AreaListItem(props) {
         </Fade>
       </Modal>
 
-      <section className={` text-lg self-center duration-200 flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm ${areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""}`} onClick={checkTicketAndArea}>
+      <section className={`text-lg self-center duration-200 flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-1 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm ${areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""}`} onClick={checkTicketAndArea}>
         <div className="flex justify-between mr-0">
           <h3 className={` text-lg self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
           <RadioGroup aria-label="area" name="area" value={initialArea} onChange={updateBookingInformation}>
