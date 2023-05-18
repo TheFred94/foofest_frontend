@@ -41,3 +41,22 @@ p {
   font-size: 1.25rem;
   line-height: 1.5rem;
 }
+
+/* span.timeslot {
+  transition: visibility 250ms ease-in-out;
+} */
+
+@media screen and (min-width: 1280px) {
+  .bandcontainer {
+    background-size: 166%;
+    transition: all 250ms ease-in-out;
+    background-position: center;
+  }
+  .bandcontainer:hover {
+    background-size: 178%;
+  }
+
+  .bandcontainer:hover span.timeslot {
+    opacity: 1;
+  }
+}

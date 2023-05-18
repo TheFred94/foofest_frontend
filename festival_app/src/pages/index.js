@@ -40,7 +40,7 @@ export default function MyApp({ bands }) {
           </div>
         </div>
         <Button className="mt-20 mb-60 rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-20 text-color-yellow hover:bg-color-yellow hover:text-color-black">
-          <Anchor href="/bands">SEE ALL ARTIST</Anchor>
+          <Anchor href="/program">SEE ALL ARTIST</Anchor>
         </Button>
         <div className="m-auto h-0.5 w-4/5 max-w-3/4 bg-color-white"></div>
       </div>
