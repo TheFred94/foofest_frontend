@@ -1,14 +1,16 @@
 import { BookingInformation } from "@/pages/_app";
 import { useState, useContext, useEffect } from "react";
+import { TicketType } from "./TicketType";
 
 export function TicketTypes() {
   // sets default state
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
   const [ticketType, setTicketType] = useState("");
-  // console.log(bookingDetails);
 
+  // This function is setting the ticket type, as well as making sure the right radio button is chosen
   function pickTicketType(type) {
     setTicketType(type);
+    console.log("pickTicketType called");
   }
 
   // This function updates the bookingInformation, so that it  also contains the clicked area
@@ -20,6 +22,7 @@ export function TicketTypes() {
     }));
   }
 
+  // This function calls "updateBookingDetails" everytime ticketType is changed
   useEffect(() => {
     updateBookingDetails();
   }, [ticketType]);
@@ -27,15 +30,20 @@ export function TicketTypes() {
   return (
     <>
       <section className="grid-cols-2 grid my-10 	">
-        <div className="text-center cursor-pointer" onClick={() => pickTicketType("regular")}>
-          <h3>Regular</h3>
-          <p>No goodies</p>
-        </div>
-
-        <div className="text-center cursor-pointer" onClick={() => pickTicketType("vip")}>
-          <h3>VIP</h3>
-          <p>All the goodies</p>
-        </div>
+        <TicketType // This component is one of the ticketTypes
+          ticketType={"Regular"} // Name of TicketType
+          typeAddOns={"No goodies added"} // ticket type add ons
+          radioValue={"regular"} // type of ticket in lowercase
+          selectedValue={ticketType} //value to check radio button
+          pickTicketType={pickTicketType} // function to handle change in ticketType
+        />
+        <TicketType //Same as above
+          ticketType={"VIP"}
+          typeAddOns={"All the goodies added"}
+          radioValue={"vip"}
+          selectedValue={ticketType}
+          pickTicketType={pickTicketType}
+        />
       </section>
     </>
   );
