@@ -255,13 +255,13 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
      if (selectedDay === (day) ){
       return <div key={day}>
         <h3>{fullDayName(day)}</h3>
-        <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
+        <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3 ">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
       </div>
     } else { 
       return <div key={day}>
-        <h3>{fullDayName(day)}</h3>
+        <h3 >{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
@@ -302,8 +302,8 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, localChec
             }}
       />
       </div>
-      <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75">{band.act}</span>
-      <span className="text-color-blue px-6 py-3 text-2xl text-center bg-color-yellow-75">
+      <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75 font-sans font-bold">{band.act}</span>
+      <span className="text-color-blue font-sans px-6 py-3 text-2xl text-center bg-color-yellow-75">
       {band.start} - {band.end}
       </span>
       </div>
