@@ -20,7 +20,7 @@ function TentSelection() {
     <>
       <div>
         <div className="flex justify-around">
-          <h3>2 person tent </h3>
+          <p>2 person tent </p>
 
           <div className="flex">
             <Button className="text-color-white" variant="text">
@@ -35,7 +35,7 @@ function TentSelection() {
           </div>
         </div>
         <div className="flex justify-around">
-          <h3>3 person tent </h3>
+          <p>3 person tent </p>
 
           <div className="flex">
             <Button className="text-color-white" variant="text">
