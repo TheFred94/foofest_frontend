@@ -10,6 +10,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
 import FormControl from "@mui/material/FormControl";
+import { yellow } from "@mui/material/colors";
 
 export function AreaListItem(props) {
   // creates variables and sets defaultState
@@ -51,7 +52,7 @@ export function AreaListItem(props) {
   };
 
   // This function updates the bookingInformation, so that it  also contains the clicked area
-  function updateBookingInformation(event) {
+  function updateBookingInformation() {
     // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
@@ -123,17 +124,16 @@ export function AreaListItem(props) {
               value={area.area}
               control={
                 <Radio
-                  className={`${areaAvailable() === "text-color-red" ? "color-gray" : ""}`}
+                  className={`${areaAvailable() === "text-color-red" ? "color-gray" : ""} `}
                   sx={{
                     m: 0,
                     "& .MuiSvgIcon-root": {
-                      color: "yellow",
                       fontSize: 20,
-
-                      "& .Mui-checked": {
+                      color: "yellow",
+                      "&.Mui-checked": {
                         color: "yellow",
                       },
-                      "&.MuiTouchRippe-root": {
+                      "&.MuiTouchRipple-root": {
                         color: "yellow",
                       },
                     },
