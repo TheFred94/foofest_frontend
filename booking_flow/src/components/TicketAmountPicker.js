@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { Typography } from "@mui/material";
 
 export function TicketAmountPicker(props) {
   // Creates const variables and sets defaultState
@@ -41,33 +42,42 @@ export function TicketAmountPicker(props) {
 
   return (
     <>
-      <div className="flex">
-        <Button
-          className="text-color-white"
-          variant="text"
-          onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */
-        >
+      <div className="flex items-center">
+        <Button className="font-bold text-5xl rounded-2 border-2 border-solid place-self-center border-color-yellow text-color-blue h-14 font-sans" variant="contained" style={{ backgroundColor: "yellow" }} onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */>
           -
         </Button>
 
-        <p className="mx-10">{ticketAmount}</p>
+        <p className="mx-16 font-bold text-5xl">{ticketAmount}</p>
 
-        <Button
-          className="text-color-white"
-          variant="text"
-          onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */
-        >
+        <Button className="text-color-blue font-bold text-5xl font-sans rounded-2 border-2 border-solid place-self-center border-color-yellow h-14" variant="text" style={{ backgroundColor: "yellow" }} onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */>
           +
         </Button>
       </div>
 
       {/* This formGroup contains, the checkbox, that determines if everyone should be able to have their own tent. */}
-      <FormGroup>
+      <FormGroup className="flex items-center">
         <FormControlLabel
           onClick={tentForEach}
-          control={<Checkbox />}
-          label="One tent for each person"
-          className="text-color-white"
+          control={
+            <Checkbox
+              sx={{
+                "& .MuiSvgIcon-root": {
+                  color: "yellow",
+                  "&.Mui-checked": {
+                    color: "yellow",
+                  },
+                  ".MuiTouchRippe-root": {
+                    color: "yellow",
+                  },
+                  "&.MuiCheckbox-root": {
+                    fontFamily: "var(--font-josefin)",
+                  },
+                },
+              }}
+            />
+          }
+          label={<Typography style={{ fontFamily: "var(--font-josefin" }}>One tent for each person?</Typography>}
+          className="flex items-center text-color-white font-sans pt-5"
         />
       </FormGroup>
     </>

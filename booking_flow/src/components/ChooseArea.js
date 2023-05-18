@@ -16,7 +16,7 @@ export function ChooseArea() {
 
   return (
     <>
-      <h2 className="text-center my-8">Vælg område</h2>
+      <h2 className="text-center mt-16 mb-5">Choose area</h2>
 
       {/* if areas is empty, then don't show anything, else show AreaList component.  */}
       {areas === "" ? <p></p> : <AreaList areas={areas} />}
