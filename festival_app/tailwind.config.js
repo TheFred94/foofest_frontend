@@ -18,7 +18,8 @@ module.exports = {
       "color-white": "#F9F9F9",
       "color-green": "#00B88B",
       "color-purple": "#A836DA",
-
+      "color-orange": "#E4A74A",
+      "color-yellow": "#F9F01F",
       "color-red": "#EB8686",
       "color-gray": "#969696",
       "color-purple": "rgba(168, 54, 218, 0.38)",
