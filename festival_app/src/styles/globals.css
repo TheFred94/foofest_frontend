@@ -20,10 +20,10 @@ h2 {
   font-size: 3rem;
   font-weight: 700;
   position: relative;
-  -webkit-text-stroke: 0.12rem currentcolor;
-  -webkit-text-fill-color: transparent;
+  text-shadow: 1px 1px 0 var(--white), -1px -1px 0 var(--white), 1px -1px 0 var(--white),
+    -1px 1px 0 var(--white), 1px 1px 0 var(--white);
+  color: var(--black);
   font-family: var(--font-josefin);
-  color: var(--white);
 }
 
 h3,
