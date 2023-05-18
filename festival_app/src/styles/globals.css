@@ -46,6 +46,11 @@ p {
   transition: visibility 250ms ease-in-out;
 } */
 
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+  color: #f9f01f;
+}
+
 @media screen and (min-width: 1280px) {
   .bandcontainer {
     background-size: 166%;
