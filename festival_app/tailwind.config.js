@@ -24,6 +24,8 @@ module.exports = {
       "color-green": "#00B88B",
       "color-purple": "#A836DA",
       "color-yellow": "#F9F01F",
+      "color-yellow-75": "rgba(249,249,249,.75)",
+      // "color-yellow-75": "rgba(249,240,31,.75)",
       "color-orange": "#E4A74A",
     },
     fontFamily: {
