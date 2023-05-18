@@ -117,7 +117,7 @@ export function AreaListItem(props) {
       </Modal>
 
       <section
-        className={`text-lg self-center duration-200 flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-1 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm  ${areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""}
+        className={`text-lg self-center duration-500 flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-1 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm  ${areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""}
       ${area.area === bookingDetails.area ? "bg-gradient-to-b from-color-teal to-color-purple" : ""}
       
       `}
