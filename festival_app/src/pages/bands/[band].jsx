@@ -1,12 +1,115 @@
 import Head from "next/head";
 import Button from "@mui/material/Button";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import CloseIcon from "@mui/icons-material/Close";
+import Anchor from "@/components/Anchor";
 import { Spotify } from "@/components/svgs";
 import { Youtube } from "@/components/svgs";
 import { ArrowLeft } from "@/components/svgs";
+import { TextField, Checkbox, Snackbar, IconButton } from "@mui/material";
+import { useEffect, useState } from "react";
 
 import "material-symbols";
 
 export default function Product({ bandData, scheduleData }) {
+  const [snackOpen, setSnackOpen] = useState([false, ""]);
+  const [favourites, setFavourites] = useState();
+
+  useEffect(() => {
+    const currentLocal = localStorage.getItem("favourites", JSON.stringify(favourites));
+    console.log("CurrentLocal", currentLocal);
+
+    if (currentLocal !== null) {
+      const currentToArray = currentLocal.split(`","`);
+      console.log("currentToArray", currentToArray);
+      setFavourites(currentToArray);
+    } else {
+      console.log("LocalStorage is Empty");
+    }
+  }, []);
+
+  useEffect(() => {
+    const favToString = JSON.stringify(favourites);
+    console.log("FavToString", favToString);
+    if (favToString !== undefined || favToString === []) {
+      const editFav = favToString.substring(2, favToString.lastIndexOf(`"]`));
+      localStorage.setItem("favourites", editFav);
+      // console.log("editFav", editFav);
+    } else {
+      localStorage.removeItem("favourites");
+    }
+  }, [favourites]);
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const LocalStorageFavourite = (e) => {
+    // console.log(e)
+    if (snackOpen[0] === true) {
+      closeSnack;
+      sleep(500).then(() => {
+        if (e.target.checked === true) {
+          setSnackOpen([true, `${e.target.value} has been added to favourites`]);
+          // localStorage.setItem("favourites", JSON.stringify(favourites));
+        } else {
+          setSnackOpen([true, `${e.target.value} has been removed from favourites`]);
+        }
+      });
+    } else if (snackOpen[0] === false) {
+      e.target.checked === true ? setSnackOpen([true, `${e.target.value} has been added to favourites`]) : setSnackOpen([true, `${e.target.value} has been removed from favourites`]);
+    }
+    CheckFavourites(e.target.value, e.target.checked);
+  };
+
+  function closeSnack() {
+    setSnackOpen([false, ""]);
+  }
+
+  function CheckFavourites(band, i) {
+    if (i === true) {
+      if (favourites === undefined) {
+        setFavourites([`${band}/`]);
+      } else {
+        setFavourites([...favourites, `${band}/`]);
+      }
+    } else {
+      if (favourites.length === 0) {
+        setFavourites();
+      } else {
+        const newFavourites = favourites.filter((fav) => fav != `${band}/`);
+        setFavourites(newFavourites);
+      }
+    }
+    console.log("CheckFav", favourites);
+  }
+
+  const action = (
+    <>
+      <Anchor href="personalprogram">
+        <Button color="success" size="small">
+          See Personal Program
+        </Button>
+      </Anchor>
+      <IconButton size="small" aria-label="close" color="inherit">
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
+  );
+
+  const localChecked = (band) => {
+    if (favourites !== undefined) {
+      for (let i = 0; i < favourites.length; i++) {
+        if (favourites[i].substring(0, favourites[i].lastIndexOf("/")) === band) {
+          console.log(favourites[i].substring(0, favourites[i].lastIndexOf("/")));
+          console.log(band);
+          return "checked";
+        }
+      }
+    } else {
+      return "";
+    }
+  };
+
   console.log(bandData);
   console.log("scheduleData", scheduleData);
   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
@@ -88,16 +191,33 @@ export default function Product({ bandData, scheduleData }) {
           <Button onClick={() => goBack()} className="absolute left-1 top-1 z-40">
             <ArrowLeft className="fill-color-yellow w-10" />
           </Button>
-
+          {matchingAct.cancelled !== true ? (
+            <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-yellow p-5 rounded-full flex items-center justify-center z-10">
+              <Checkbox
+                onClick={LocalStorageFavourite}
+                checked={localChecked(bandData.act)}
+                value={bandData.act}
+                className="p-0"
+                icon={<FavoriteBorder />}
+                checkedIcon={<Favorite />}
+                color="error"
+                sx={{
+                  "& .MuiSvgIcon-root": { fontSize: 30 },
+                }}
+              />
+            </div>
+          ) : (
+            ""
+          )}
           {matchingAct.cancelled === true ? (
             <div className="grid items-center justify-items-center ">
               <h2 className="w-full text-center bg-color-white z-40 grid col-start-1 row-start-1 text-color-blue">Cancelled</h2>
-              <img src={logoUrl} alt={bandData.bio} className="z-10 filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video " />
+              <img src={logoUrl} alt={bandData.bio} className="z-10 filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video pointer-events-none" />
             </div>
           ) : (
-            <img src={logoUrl} alt={bandData.bio} className="w-full aspect-video object-contain z-10" />
+            <img src={logoUrl} alt={bandData.bio} className="w-full aspect-video object-contain z-10 pointer-events-none" />
           )}
-          <img src={logoUrl} alt={bandData.bio} className="absolute z-0 grid-row-1 w-full aspect-video object-fill blur-sm" />
+          <img src={logoUrl} alt={bandData.bio} className="absolute z-0 grid-row-1 w-full aspect-video object-fill blur-sm pointer-events-none" />
         </div>
         <h3 className="text-4xl pt-2 pb-3 ">{bandData.name}</h3>
         <section className="pb-5">
@@ -119,8 +239,10 @@ export default function Product({ bandData, scheduleData }) {
         <div className="flex justify-center gap-10">
           <Spotify className="w-12 h-12 mr-10" />
           <Youtube className="w-12 h-12" />
+          <button onClick={() => consol.log(favourites)}>Get Data</button>
         </div>
       </div>
+      <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[1]} action={action} />;
     </>
   );
 }

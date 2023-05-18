@@ -43,20 +43,6 @@ export default function Program({ schedule, bands }) {
       }
   }, [favourites])
 
-  function handleStageClick(stage) {
-    setSelectedStage(stage);
-  }
-
-  function handleDayClick(day) {
-    setSelectedDay(day);
-    console.log(day);
-  }
-
-  function handleChange(e) {
-    setSelectedAct(e.target.value);
-    console.log(e.target.value);
-  }
-
   const sleep = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
 
@@ -128,6 +114,20 @@ const LocalStorageFavourite = (e) => {
     } else {
       return ""
     }
+  }
+
+    function handleStageClick(stage) {
+    setSelectedStage(stage);
+  }
+
+  function handleDayClick(day) {
+    setSelectedDay(day);
+    console.log(day);
+  }
+
+  function handleChange(e) {
+    setSelectedAct(e.target.value);
+    console.log(e.target.value);
   }
 
   return (
