@@ -11,6 +11,7 @@ export function TicketAmountPicker(props) {
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
   const [ticketAmount, setTicketAmount] = useState(1);
   const [oneTentForEach, setOneTentForEach] = useState(false);
+  const [twoPersonTentNum, setTwoPersonTentNum] = useState(0);
 
   /* makes sure that bookingDetails is updated everytime either  "ticketAmount" or "oneTentForEach" changes */
   useEffect(() => {
@@ -20,6 +21,7 @@ export function TicketAmountPicker(props) {
   // This function is checks action, and if action is true 1 is added to ticketAmount, but if it's false, then it subtracts one from ticketAmount
   function addOrSubtractTicket(action) {
     action ? setTicketAmount((old) => old + 1) : setTicketAmount((old) => old - 1);
+    oneTentForEach ? setTwoPersonTentNum(bookingDetails.ticketAmount) : setTwoPersonTentNum(0);
   }
 
   /*This function updates bookingDetails, by setting state to the new values of "ticketAmount" and oneTentForEach*/
@@ -28,6 +30,7 @@ export function TicketAmountPicker(props) {
       ...prev,
       amount: ticketAmount,
       oneTentForEach: oneTentForEach,
+      tents: { "2personTent": twoPersonTentNum, "3personTent": 0 },
     }));
   }
 
@@ -35,6 +38,7 @@ export function TicketAmountPicker(props) {
   function tentForEach(e) {
     // takes value from checkbox and gives it to the "isChecked" variable.
     const isChecked = e.target.checked;
+    isChecked ? setTwoPersonTentNum(bookingDetails.amount) : setTwoPersonTentNum(0);
 
     // if isChecked is true then set "oneTentForEach" to true, else set it to false
     isChecked ? setOneTentForEach(true) : setOneTentForEach(false);
@@ -43,13 +47,23 @@ export function TicketAmountPicker(props) {
   return (
     <>
       <div className="flex items-center">
-        <Button className="font-bold text-5xl rounded-2 border-2 border-solid place-self-center border-color-yellow text-color-blue h-14 font-sans" variant="contained" style={{ backgroundColor: "yellow" }} onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */>
+        <Button
+          className="font-bold text-5xl rounded-2 border-2 border-solid place-self-center border-color-yellow text-color-blue h-14 font-sans"
+          variant="contained"
+          style={{ backgroundColor: "yellow" }}
+          onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */
+        >
           -
         </Button>
 
         <p className="mx-16 font-bold text-5xl">{ticketAmount}</p>
 
-        <Button className="text-color-blue font-bold text-5xl font-sans rounded-2 border-2 border-solid place-self-center border-color-yellow h-14" variant="text" style={{ backgroundColor: "yellow" }} onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */>
+        <Button
+          className="text-color-blue font-bold text-5xl font-sans rounded-2 border-2 border-solid place-self-center border-color-yellow h-14"
+          variant="text"
+          style={{ backgroundColor: "yellow" }}
+          onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */
+        >
           +
         </Button>
       </div>
