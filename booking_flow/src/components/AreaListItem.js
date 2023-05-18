@@ -21,7 +21,6 @@ export function AreaListItem(props) {
   const initialArea = bookingDetails.area || "";
   // state for modal
   const [open, setOpen] = useState(false);
-  console.log(area.area);
 
   // creates functions to handle modal
   const handleOpen = () => setOpen(true);
@@ -81,8 +80,8 @@ export function AreaListItem(props) {
     }
   }
 
-  const areaStatus = areaAvailable(area, bookingDetails);
-  const areaClass = areaStatus.class + (areaStatus.available ? "" : " text-color-gray");
+  // const areaStatus = areaAvailable(area, bookingDetails);
+  // const areaClass = areaStatus.class + (areaStatus.available ? "" : " text-color-gray");
   return (
     <>
       {/* modal from mui */}
@@ -124,10 +123,13 @@ export function AreaListItem(props) {
               value={area.area}
               control={
                 <Radio
+                  className={`${areaAvailable() === "text-color-red" ? "color-gray" : ""}`}
                   sx={{
                     m: 0,
                     "& .MuiSvgIcon-root": {
                       color: "yellow",
+                      fontSize: 20,
+
                       "& .Mui-checked": {
                         color: "yellow",
                       },
@@ -136,8 +138,10 @@ export function AreaListItem(props) {
                       },
                     },
                   }}
+                  disabled={areaAvailable() === "text-color-red" || area.available === 0}
                 />
               }
+              disabled={areaAvailable() === "text-color-red" || area.available === 0}
             ></FormControlLabel>
           </RadioGroup>
         </div>
