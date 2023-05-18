@@ -42,7 +42,21 @@ p {
   line-height: 1.5rem;
 }
 
-.material-symbols-outlined {
-  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
-  color: #f9f01f;
+/* span.timeslot {
+  transition: visibility 250ms ease-in-out;
+} */
+
+@media screen and (min-width: 1280px) {
+  .bandcontainer {
+    background-size: 166%;
+    transition: all 250ms ease-in-out;
+    background-position: center;
+  }
+  .bandcontainer:hover {
+    background-size: 178%;
+  }
+
+  .bandcontainer:hover span.timeslot {
+    opacity: 1;
+  }
 }
