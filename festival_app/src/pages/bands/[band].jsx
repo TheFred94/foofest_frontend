@@ -1,7 +1,10 @@
 import Head from "next/head";
-import Anchor from "@/components/Anchor";
+import Button from "@mui/material/Button";
 import { Spotify } from "@/components/svgs";
 import { Youtube } from "@/components/svgs";
+import { ArrowLeft } from "@/components/svgs";
+
+import "material-symbols";
 
 export default function Product({ bandData, scheduleData }) {
   console.log(bandData);
@@ -80,47 +83,52 @@ export default function Product({ bandData, scheduleData }) {
       <Head>
         <title>{bandData.name}</title>
       </Head>
-      <div className="relative aspect-video object-contain grid ">
-        <Anchor href="/" className="absolute left-5 top-5 z-40">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#F9F01F" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
-          </svg>
-        </Anchor>
+      <div className="max-w-screen-xl m-auto">
+        <div className="relative aspect-video object-contain grid ">
+          <Button onClick={() => goBack()} className="absolute left-1 top-1 z-40">
+            <ArrowLeft className="fill-color-yellow w-10" />
+          </Button>
 
-        {matchingAct.cancelled === true ? (
-          <div className="grid items-center justify-items-center ">
-            <h2 className="w-full text-center bg-color-white z-40 grid col-start-1 row-start-1 text-color-blue">Cancelled</h2>
-            <img src={logoUrl} alt={bandData.bio} className="z-10 filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video " />
-          </div>
-        ) : (
-          <img src={logoUrl} alt={bandData.bio} className="w-full aspect-video object-contain z-10" />
-        )}
-        <img src={logoUrl} alt={bandData.bio} className="absolute z-0 grid-row-1 w-full aspect-video object-fill blur-sm" />
-      </div>
-      <h3 className="text-4xl pt-2 pb-3 ">{bandData.name}</h3>
-      <section className="pb-5">
-        <p>{bandData.genre}</p>
-      </section>
-      {matchingAct && (
-        <section className="pb-8">
-          <p>
-            <span className="font-semibold"> {matchingAct.day}</span>, {matchingAct.start}
-          </p>
-
-          <span className="font-thin text-lg text-color-white">{matchingAct.stage}</span>
+          {matchingAct.cancelled === true ? (
+            <div className="grid items-center justify-items-center ">
+              <h2 className="w-full text-center bg-color-white z-40 grid col-start-1 row-start-1 text-color-blue">Cancelled</h2>
+              <img src={logoUrl} alt={bandData.bio} className="z-10 filter grayscale object-contain w-full col-start-1 row-start-1 aspect-video " />
+            </div>
+          ) : (
+            <img src={logoUrl} alt={bandData.bio} className="w-full aspect-video object-contain z-10" />
+          )}
+          <img src={logoUrl} alt={bandData.bio} className="absolute z-0 grid-row-1 w-full aspect-video object-fill blur-sm" />
+        </div>
+        <h3 className="text-4xl pt-2 pb-3 ">{bandData.name}</h3>
+        <section className="pb-5">
+          <p>{bandData.genre}</p>
         </section>
-      )}
-      <section className="pb-10">
-        <h3>Biografi</h3>
-        <p>{bandData.bio}</p>
-      </section>
-      <div className="flex justify-center gap-10">
-        <Spotify className="w-12 h-12 mr-10" />
-        <Youtube className="w-12 h-12" />
+        {matchingAct && (
+          <section className="pb-8">
+            <p>
+              <span className="font-semibold"> {matchingAct.day}</span>, {matchingAct.start}
+            </p>
+
+            <span className="font-thin font-sans text-xl text-color-white">{matchingAct.stage}</span>
+          </section>
+        )}
+        <section className="pb-10">
+          <h3>Biografi</h3>
+          <p>{bandData.bio}</p>
+        </section>
+        <div className="flex justify-center gap-10">
+          <Spotify className="w-12 h-12 mr-10" />
+          <Youtube className="w-12 h-12" />
+        </div>
       </div>
     </>
   );
 }
+
+function goBack() {
+  window.history.back();
+}
+
 export async function getServerSideProps(context) {
   const band = context.params.band;
 

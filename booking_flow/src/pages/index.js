@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { BookingInformation } from "./_app";
+
 export default function Home() {
   return (
     <main>

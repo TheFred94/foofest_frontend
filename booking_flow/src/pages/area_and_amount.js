@@ -4,6 +4,8 @@ import ChooseAmount from "@/components/ChooseAmount";
 import { ChooseArea } from "../components/ChooseArea";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
+import "material-symbols";
+
 export default function AreaAndAmount() {
   // States
 
@@ -47,18 +49,19 @@ export default function AreaAndAmount() {
 
       {/* button for testing, just logs bookingDetails */}
       <div className=" grid place-content-center">
-        <button
+        {/* Used to log the booking information to make sure the correct data is logged for the further flow */}
+        {/* <button
           className="bg-color-white p-5 m-5"
           onClick={() => {
             console.log(`This is bookingDetails: `, bookingDetails);
           }}
         >
           Log bookingDetails
-        </button>
+        </button> */}
       </div>
-      <div className="flex justify-center">
-        <Button className="rounded-none border-2 border-solid place-self-center border-color-yellow h-10 px-10 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold" onClick={reserveTickets}>
-          KØB BILLET
+      <div className="flex justify-center mt-10">
+        <Button className=" rounded-none border-2 border-solid place-self-center border-color-yellow h-10 mb-10 px-6 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold gap-5 " onClick={reserveTickets}>
+          <span className="pt-1">Next step</span> <span className="material-symbols-outlined">arrow_forward</span>
         </Button>
       </div>
     </main>

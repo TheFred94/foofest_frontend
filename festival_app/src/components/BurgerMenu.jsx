@@ -26,7 +26,9 @@ export default function TemporaryDrawer() {
         {["Program", "Biletter", "Nyheder", "Frivillig"].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <Anchor href={`./${text.toLowerCase()}`}>{text}</Anchor>
+              <Anchor className="font-sans" href={`./${text.toLowerCase()}`}>
+                <p className="font-sans text-color-black">{text}</p>
+              </Anchor>
             </ListItemButton>
           </ListItem>
         ))}

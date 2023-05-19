@@ -14,6 +14,7 @@ h1 {
   line-height: 3rem;
   color: var(--white);
   font-family: var(--font-playfair);
+  text-transform: uppercase;
 }
 
 h2,
@@ -47,4 +48,14 @@ p {
 }
 span {
   font-family: var(--font-josefin);
+}
+
+/* Removes the margin on the radio button */
+.css-j204z7-MuiFormControlLabel-root {
+  margin: 0;
+}
+
+/* Changes the ripple effect on the radio button */
+.css-8je8zh-MuiTouchRipple-root {
+  color: #f9f01f;
 }

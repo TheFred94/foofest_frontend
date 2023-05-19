@@ -3,6 +3,7 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CloseIcon from "@mui/icons-material/Close";
 import Anchor from "@/components/Anchor";
+import Link from "next/link";
 import { TextField, Checkbox, Snackbar, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -14,6 +15,7 @@ export default function Program({ schedule, bands }) {
   const [selectedAct, setSelectedAct] = useState(null);
   const [snackOpen, setSnackOpen] = useState([false, ""]);
   const [favourites, setFavourites] = useState()
+  const [showTime, setShowTime] = useState(false)
 
     useEffect(()=> {
     const currentLocal = localStorage.getItem("favourites", JSON.stringify(favourites))
@@ -51,7 +53,7 @@ export default function Program({ schedule, bands }) {
   }
 
   function handleChange(e) {
-      setSelectedAct(e.target.value);
+    setSelectedAct(e.target.value);
     console.log(e.target.value);
   }
 
@@ -129,8 +131,8 @@ const LocalStorageFavourite = (e) => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-color-black to-color-blue">
-      <h1>Program</h1>
+    <div className="max-w-screen-xl my-32 m-auto bg-gradient-to-b from-color-black to-color-blue">
+      <h1 className="uppercase text-center text-9xl">Program</h1>
       <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
@@ -198,6 +200,7 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
         .filter(stage => !selectedStage || stage === selectedStage)
         .map(stage => {
           if(selectedStage === (stage)) { 
+/* --------------------------------------- */
             return <div key={stage}>
             <ObjectDay
               schedule={schedule}
@@ -208,8 +211,10 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
               LocalStorageFavourite={LocalStorageFavourite}
               localChecked={localChecked}
               />
-          </div>} else {return <div key={stage}>
-            <h2>{stage}</h2>
+          </div>} else {
+/* --------------------------------------- */
+            return <div key={stage}>
+            <h2 className="uppercase text-8xl text-center my-20 mt-40">{stage}</h2>
             <ObjectDay
               schedule={schedule}
               stage={...schedule[stage]}
@@ -252,16 +257,18 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
   return Object.keys(stage)
     .filter(day => !selectedDay || day === selectedDay)
     .map(day => {
+{/* --------------------------------------- */}
      if (selectedDay === (day) ){
-      return <div key={day}>
-        <h3>{fullDayName(day)}</h3>
-        <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
+      return <div  key={day}>
+        <h3 className="text-5xl uppercase text-center my-16" >{fullDayName(day)}</h3>
+        <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3 ">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
       </div>
     } else { 
+ /* --------------------------------------- */
       return <div key={day}>
-        <h3>{fullDayName(day)}</h3>
+        <h3 className="text-5xl uppercase text-center mt-28 mb-14" >{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
@@ -273,10 +280,23 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, localChec
 
   // console.log("days", days)
   // console.log("selectedAct", selectedAct)
-  // console.log("bands", bands)
+ /*  console.log("bands", bands) */
+  
 
+  const bandSlug = (name) => {
+    for (let i = 0; i < bands.length; i++) {
+      if (name === bands[i].name) {
+        return bands[i].slug
+      }
+    }
+  }
+
+
+
+
+  /* Baggrundsbillede */
     const backgroundImage = (name) => {
-    // console.log(name);
+     /* console.log(name); */
     // console.log("bands", bands);
     for (let i = 0; i < bands.length; i++) {
       if (name === bands[i].name) {
@@ -284,11 +304,14 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, localChec
       }
     }
   };
-/*   console.log(Object.values(days)) */
+/* Søgefunktion */
   return Object.values(days).filter(band => band.act.toLowerCase() !== "break" && (!selectedAct || band.act.toLowerCase().includes(selectedAct))).map(band => (
-    <div key={band.act} style={{ backgroundImage: backgroundImage(band.act) }} className="relative grid grid-rows-2 items-start justify-items-center bg-cover bg-no-repeat h-96 pt-20 pb-110 px-8" >
-
-    <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-white p-5 rounded-full flex items-center justify-center">
+    /* --------------------------------------- */
+    <div key={band.act} 
+    style={{ backgroundImage: backgroundImage(band.act) }} 
+    className="bandcontainer relative grid items-start justify-items-center bg-cover bg-no-repeat h-96 pb-110 border-b-2 border-color-white last:border-none  md:border-none" >
+{/* --------------------------------------- */}
+    <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-yellow p-5 rounded-full flex items-center justify-center">
       <Checkbox
         onClick={LocalStorageFavourite}
         checked={localChecked(band.act)}
@@ -301,15 +324,21 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, localChec
           "& .MuiSvgIcon-root": { fontSize: 30 },
             }}
       />
+      
       </div>
-      <span className="text-color-blue px-6 py-3 text-3xl text-center bg-color-yellow-75">{band.act}</span>
-      <span className="text-color-blue px-6 py-3 text-2xl text-center bg-color-yellow-75">
+{/* --------------------------------------- */}
+      <Anchor  href={`/bands/${bandSlug(band.act)}`}  className="flex flex-col w-full h-full justify-between bg-color-black bg-opacity-50 lg:hover:bg-opacity-0 transition">
+      <span className="text-color-black font-sans uppercase font-bold pt-5 place-self-center w-fit px-6 mx-6 mt-20 py-3 text-3xl text-center bg-color-white">{band.act}</span>
+      <span className="timeslot text-color-black font-sans uppercase font-bold pt-2 place-self-center w-max px-6 mx-6 mb-20 py-1 text-2xl text-center bg-color-white lg:opacity-0 md:transition">
       {band.start} - {band.end}
       </span>
+      </Anchor>
       </div>
 ))
 
 }
+
+
 
 export async function getServerSideProps() {
   // const band = context.params.band;

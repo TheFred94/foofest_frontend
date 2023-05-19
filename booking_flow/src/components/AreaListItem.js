@@ -5,11 +5,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import FormControl from "@mui/material/FormControl";
 
 export function AreaListItem(props) {
   // creates variables and sets defaultState
@@ -51,7 +49,7 @@ export function AreaListItem(props) {
   };
 
   // This function updates the bookingInformation, so that it  also contains the clicked area
-  function updateBookingInformation(event) {
+  function updateBookingInformation() {
     // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
@@ -115,25 +113,30 @@ export function AreaListItem(props) {
         </Fade>
       </Modal>
 
-      <section className="flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-2.5 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm" onClick={checkTicketAndArea}>
-        <div className="flex justify-between mr-0">
+      <section
+        className={`text-lg self-center duration-500 flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-1 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm  ${areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""}
+      ${area.area === bookingDetails.area ? "bg-gradient-to-b from-color-teal to-color-purple" : ""}
+      
+      `}
+        onClick={checkTicketAndArea}
+      >
+        <div className="flex justify-between mr-0 duration-200">
           <h3 className={` text-lg self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
           <RadioGroup aria-label="area" name="area" value={initialArea} onChange={updateBookingInformation}>
             <FormControlLabel
               value={area.area}
               control={
                 <Radio
-                  className={`${areaAvailable() === "text-color-red" ? "color-gray" : ""}`}
+                  className={`${areaAvailable() === "text-color-red" ? "color-gray" : ""} `}
                   sx={{
                     m: 0,
                     "& .MuiSvgIcon-root": {
-                      color: "yellow",
                       fontSize: 20,
-
-                      "& .Mui-checked": {
+                      color: areaAvailable() === "text-color-red" ? "gray" : "yellow",
+                      "&.Mui-checked": {
                         color: "yellow",
                       },
-                      "&.MuiTouchRippe-root": {
+                      "&.MuiTouchRipple-root": {
                         color: "yellow",
                       },
                     },
