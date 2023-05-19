@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Accordion from "@mui/material/Accordion";
-import MuiAccordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
@@ -17,9 +16,9 @@ function Contact() {
 
     for (let i = 0; i < randomNumber; i++) {
       forms.push(
-        <div>
+        <>
           <ContactForm key={i} />
-        </div>
+        </>
       );
     }
 
