@@ -32,7 +32,7 @@ export function TentSelection() {
   return (
     <>
       <div>
-        <div className="flex flex-col mt-6  ">
+        <div className="mt-6 flex flex-col  ">
           <TentCounter size={2} PersonInTentNum={twoPersonTentNum} addOrSubtractTent={addOrSubtractTent} />
           <TentCounter size={3} PersonInTentNum={threePersonTentNum} addOrSubtractTent={addOrSubtractTent} />
         </div>
