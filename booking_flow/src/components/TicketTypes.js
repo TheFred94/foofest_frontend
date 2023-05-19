@@ -5,7 +5,7 @@ import { TicketType } from "./TicketType";
 export function TicketTypes() {
   // sets default state
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
-  const [ticketType, setTicketType] = useState("");
+  const [ticketType, setTicketType] = useState("regular");
 
   // This function is setting the ticket type, as well as making sure the right radio button is chosen
   function pickTicketType(type) {
@@ -27,7 +27,7 @@ export function TicketTypes() {
 
   return (
     <>
-      <section className="grid-cols-2 grid my-10 	">
+      <section className="my-10 grid grid-cols-2 	">
         <TicketType // This component is one of the ticketTypes
           ticketType={"Regular"} // Name of TicketType
           typeAddOns={"No goodies added"} // ticket type add ons
