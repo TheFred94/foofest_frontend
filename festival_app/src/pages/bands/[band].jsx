@@ -40,8 +40,13 @@ export default function Product({ bandData, scheduleData }) {
 
   useEffect(() => {
     const currentLocal = localStorage.getItem("favourites");
+    console.log("curLoc", currentLocal);
+    console.log("1", favourites);
     // console.log("currentLocal, 2nd effect", currentLocal);
-    if (currentLocal !== null) {
+
+    if (favourites.length === 0 && checked === false && !currentLocal.includes(bandData.name)) {
+      console.log("Fav is empty");
+    } else if (currentLocal !== null) {
       const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
       // console.log("curToArray", currentToArray);
 
@@ -49,24 +54,26 @@ export default function Product({ bandData, scheduleData }) {
       //   console.log("Band er i array");
       // } else if (favourites !== [] && !currentToArray.includes(bandData.name)) {
       //   console.log("Band er ikke i array");
-      if (favourites !== [] && !currentToArray.includes(bandData.name)) {
+      console.log("2", favourites);
+      if (favourites.length !== 0 && !currentToArray.includes(bandData.name)) {
+        console.log("3", favourites);
         // NEED TO MAKE IT NOT PUSH IF EMPTY
-
         const updatedLocal = [...currentToArray, favourites];
         const newUpdatedLocal = updatedLocal.map((band) => band + "/");
         console.log("Concat", newUpdatedLocal);
         const NULJSON = JSON.stringify(newUpdatedLocal);
         const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
-        console.log("NULJSON2 - 1", NULJSON);
-        // localStorage.setItem("favourites", NULJSON2);
-      } else if (favourites === [] && currentToArray.includes(bandData.name)) {
-        const filteredList = currentToArray.filter((band) => band !== favourites);
+        console.log("NULJSON2 - 1", NULJSON2);
+        localStorage.setItem("favourites", NULJSON2);
+      } else if (currentToArray.includes(bandData.name)) {
+        console.log("4", favourites);
+        const filteredList = currentToArray.filter((band) => band !== bandData.name);
         const newUpdatedLocal = filteredList.map((band) => band + "/");
         console.log("TheFiltering", newUpdatedLocal);
         const NULJSON = JSON.stringify(newUpdatedLocal);
         const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
-        console.log("NULJSON2 - 2", NULJSON);
-        // localStorage.setItem("favourites", NULJSON2);
+        console.log("NULJSON2 - 2", NULJSON2);
+        localStorage.setItem("favourites", NULJSON2);
       }
     }
     // console.log("fav3", favourites);
@@ -93,29 +100,29 @@ export default function Product({ bandData, scheduleData }) {
     if (snackOpen[0] === true) {
       closeSnack;
       sleep(500).then(() => {
-        if (favourites === bandData.name) {
-          console.log("1) vi er her");
-          setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
-          setFavourites([]);
-          setChecked(false);
-        } else {
-          console.log("2) Nej, vi er her");
+        if (favourites.length === bandData.name.length || favourites.length === 0) {
+          console.log("1) Nej, vi er her");
           setSnackOpen([true, `${bandData.name} has been added to favourites`]);
           setFavourites([bandData.name]);
           setChecked(true);
+        } else {
+          console.log("2) vi er her");
+          setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
+          setFavourites([]);
+          setChecked(false);
         }
       });
     } else if (snackOpen[0] === false) {
-      if (favourites === bandData.name) {
-        console.log("3) Nej, nej nej, vi er her");
-        setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
-        setFavourites([]);
-        setChecked(false);
-      } else {
-        console.log("4) Hallo, vi er her");
+      if (favourites.length === bandData.name.length || favourites.length === 0) {
+        console.log("3) Hallo, vi er her");
         setSnackOpen([true, `${bandData.name} has been added to favourites`]);
         setFavourites([bandData.name]);
         setChecked(true);
+      } else {
+        console.log("4) Nej, nej nej, vi er her");
+        setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
+        setFavourites([]);
+        setChecked(false);
       }
     }
   }
