@@ -62,7 +62,7 @@ export function AreaListItem(props) {
     updateBookingInformation();
   }, [spotAmount]);
 
-  // This function updates the bookingInformation, so that it  also contains the clicked area
+  // This function updates the bookingInformation, so that it  also contains the clicked area and amount of spots to reserve
   function updateBookingInformation() {
     // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({

@@ -3,28 +3,34 @@ import Button from "@mui/material/Button";
 export function TentCounter(props) {
   return (
     <>
-      <p className="text-center ">{`${props.size} Person tent`}</p>
+      <div className="mb-6">
+        <p className="mb-8 mt-8 text-center ">{`${props.size} Person tent ${
+          props.price !== 0 && props.price !== undefined ? props.price + ",-" : ""
+        }`}</p>
 
-      <div className="flex justify-center	 items-center">
-        <Button
-          className="font-bold text-5xl rounded-2 border-2 border-solid place-self-center border-color-yellow text-color-blue h-14 font-sans"
-          variant="contained"
-          style={{ backgroundColor: "yellow" }}
-          onClick={() => props.addOrSubtractTent(false, props.size)} /* this button subtracts one from ticketAmount */
-        >
-          -
-        </Button>
+        <div className="flex items-center	 justify-center">
+          <Button
+            className="rounded-2 h-14 place-self-center border-2 border-solid border-color-yellow font-sans text-5xl font-bold text-color-blue"
+            variant="contained"
+            style={{ backgroundColor: "yellow" }}
+            onClick={() =>
+              props.addOrSubtractTent(false, props.size, props.type)
+            } /* this button subtracts one from ticketAmount */
+          >
+            -
+          </Button>
 
-        <p className="mx-16 font-bold text-5xl">{props.PersonInTentNum}</p>
+          <p className="mx-16 text-5xl font-bold">{props.PersonInTentNum}</p>
 
-        <Button
-          className="text-color-blue font-bold text-5xl font-sans rounded-2 border-2 border-solid place-self-center border-color-yellow h-14"
-          variant="text"
-          style={{ backgroundColor: "yellow" }}
-          onClick={() => props.addOrSubtractTent(true, props.size)} /* this button adds one to ticketAmount */
-        >
-          +
-        </Button>
+          <Button
+            className="rounded-2 h-14 place-self-center border-2 border-solid border-color-yellow font-sans text-5xl font-bold text-color-blue"
+            variant="text"
+            style={{ backgroundColor: "yellow" }}
+            onClick={() => props.addOrSubtractTent(true, props.size, props.type)} /* this button adds one to ticketAmount */
+          >
+            +
+          </Button>
+        </div>
       </div>
     </>
   );

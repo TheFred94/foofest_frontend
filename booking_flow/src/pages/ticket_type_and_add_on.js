@@ -5,28 +5,44 @@ import { ChooseArea } from "../components/ChooseArea";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import { TicketTypes } from "../components/TicketTypes";
-import { CamptAddOns } from "@/components/CampAddOnns";
+import { CampAddOns } from "@/components/CampAddOns";
+import "material-symbols";
 
 export default function TicketTypeAndAddOn() {
-  const [bookingInformation, setBookingInformation] = useContext(BookingInformation);
+  const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
+  const router = useRouter();
   function loginfo() {
-    console.log(bookingInformation);
+    console.log(bookingDetails);
+  }
+
+  function nextPage() {
+    router.push(`/tent_selection`);
   }
   return (
     <>
       <main>
-        <h2 className="text-center mx-4 mt-10">
-          {" "}
-          {bookingInformation.amount > 1 ? "Regular og VIP tickets" : "Regular or VIP ticket"}
+        <h2 className="mx-4 mt-10 text-center">
+          {/* {" "}
+          {bookingInformation.ticketAmount > 1 ? "Regular og VIP tickets" : "Regular or VIP ticket"} */}
+          Choose ticket type
         </h2>
 
         <TicketTypes />
 
         <h2 className="text-center">Camp Setup</h2>
 
-        <CamptAddOns></CamptAddOns>
+        <CampAddOns></CampAddOns>
 
         <Button onClick={loginfo}> logbookingINformation</Button>
+
+        <div className="mt-10 flex justify-center">
+          <Button
+            className=" mb-10 h-10 gap-5 place-self-center rounded-none border-2 border-solid border-color-yellow px-6 font-sans font-semibold text-color-yellow hover:bg-color-yellow hover:text-color-black "
+            onClick={nextPage}
+          >
+            <span className="pt-1">Next step</span> <span className="material-symbols-outlined">arrow_forward</span>
+          </Button>
+        </div>
       </main>
     </>
   );

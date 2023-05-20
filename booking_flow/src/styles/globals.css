@@ -46,6 +46,10 @@ p {
   font-size: 1.25rem;
   line-height: 1.5rem;
 }
+small {
+  color: var(--white);
+  font-family: var(--font-josefin);
+}
 span {
   font-family: var(--font-josefin);
 }
