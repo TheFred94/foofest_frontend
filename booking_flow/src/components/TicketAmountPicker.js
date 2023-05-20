@@ -29,7 +29,7 @@ export function TicketAmountPicker(props) {
   function updateBookingDetails() {
     setBookingDetails((prev) => ({
       ...prev,
-      amount: ticketAmount,
+      ticketAmount: ticketAmount,
       oneTentForEach: oneTentForEach,
       tents: { "2personTent": twoPersonTentNum, "3personTent": 0 },
     }));

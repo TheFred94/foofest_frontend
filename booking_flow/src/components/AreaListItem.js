@@ -1,5 +1,5 @@
 import { BookingInformation } from "@/pages/_app";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -20,6 +20,9 @@ export function AreaListItem(props) {
   // state for modal
   const [open, setOpen] = useState(false);
 
+  // state for reserved spots
+  const [spotAmount, setSpotAmount] = useState(0);
+
   // creates functions to handle modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -28,13 +31,20 @@ export function AreaListItem(props) {
   function checkTicketAndArea() {
     // checks if you want to have a tent spot for each ticket, or if you are willing to share tent.
     if (bookingDetails.oneTentForEach === true) {
-      // Checks if there is enough spots available
-      bookingDetails.amount <= area.available ? updateBookingInformation() : handleOpen();
+      // Checks if there is enough spots available and sets spotAmount
+      bookingDetails.ticketAmount <= area.available ? setSpotAmount(bookingDetails.ticketAmount) : handleOpen();
     } else if (bookingDetails.oneTentForEach === false) {
-      // Checks if there is enough spots available
-      (bookingDetails.amount < 3 && area.available > bookingDetails.amount) || bookingDetails.amount / 3 <= area.available ? updateBookingInformation() : handleOpen();
+      // Checks if there is enough spots available and sets spotAmount to the highest number of spots available while keeping it from going over ticketAmount.
+      if (bookingDetails.ticketAmount <= area.available) {
+        setSpotAmount(bookingDetails.ticketAmount);
+      } else if (bookingDetails.ticketAmount / 3 <= area.available) {
+        setSpotAmount(area.available);
+      } else {
+        handleOpen();
+      }
     }
   }
+
   // styling for modal
   const style = {
     position: "absolute",
@@ -48,12 +58,17 @@ export function AreaListItem(props) {
     p: 4,
   };
 
+  useEffect(() => {
+    updateBookingInformation();
+  }, [spotAmount]);
+
   // This function updates the bookingInformation, so that it  also contains the clicked area
   function updateBookingInformation() {
     // console.log(`updateBookingInformation called`);
     setBookingDetails((prev) => ({
       ...prev,
       area: area.area,
+      spotAmount: spotAmount,
     }));
   }
 
@@ -72,9 +87,12 @@ export function AreaListItem(props) {
 
     // return the color class based on the available spots and ticket selection
     if (bookingDetails.oneTentForEach === true) {
-      return bookingDetails.amount <= availableSpots ? colorClass + " text-color-green" : "text-color-red";
+      return bookingDetails.ticketAmount <= availableSpots ? colorClass + " text-color-green" : "text-color-red";
     } else if (bookingDetails.oneTentForEach === false) {
-      return (bookingDetails.amount < 3 && availableSpots > bookingDetails.amount) || bookingDetails.amount / 3 <= availableSpots ? colorClass + " text-color-green" : "text-color-red";
+      return (bookingDetails.ticketAmount < 3 && availableSpots > bookingDetails.ticketAmount) ||
+        bookingDetails.ticketAmount / 3 <= availableSpots
+        ? colorClass + " text-color-green"
+        : "text-color-red";
     }
   }
 
@@ -114,14 +132,18 @@ export function AreaListItem(props) {
       </Modal>
 
       <section
-        className={`text-lg self-center duration-500 flex flex-col bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 m-1 pl-2 pr-3 py-4 bg-color-back cursor-pointer h-32 w-42 rounded-sm  ${areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""}
+        className={`bg-color-back w-42 m-1 flex h-32 cursor-pointer flex-col self-center rounded-sm bg-gradient-to-b from-color-opacity-20 to-color-opacity-10 py-4 pl-2 pr-3 text-lg duration-500  ${
+          areaAvailable() === "text-color-red" ? "bg-color-opacity-40" : ""
+        }
       ${area.area === bookingDetails.area ? "bg-gradient-to-b from-color-teal to-color-purple" : ""}
       
       `}
         onClick={checkTicketAndArea}
       >
-        <div className="flex justify-between mr-0 duration-200">
-          <h3 className={` text-lg self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>{area.area}</h3>
+        <div className="mr-0 flex justify-between duration-200">
+          <h3 className={` self-center text-lg duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>
+            {area.area}
+          </h3>
           <RadioGroup aria-label="area" name="area" value={initialArea} onChange={updateBookingInformation}>
             <FormControlLabel
               value={area.area}
@@ -149,10 +171,12 @@ export function AreaListItem(props) {
           </RadioGroup>
         </div>
 
-        <div className="flex justify-between mt-auto  ">
-          <p className={`self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>spots left</p>
+        <div className="mt-auto flex justify-between  ">
+          <p className={`self-center duration-200 ${areaAvailable() === "text-color-red" ? "text-color-gray" : ""}`}>
+            spots left
+          </p>
           <div className="font-sans">
-            <span className={"font-bold text-2xl " + areaAvailable()}>{area.available}</span>
+            <span className={"text-2xl font-bold " + areaAvailable()}>{area.available}</span>
           </div>
         </div>
       </section>
