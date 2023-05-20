@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 import CloseIcon from "@mui/icons-material/Close";
+import React from "react";
 import Anchor from "@/components/Anchor";
 import { Spotify } from "@/components/svgs";
 import { Youtube } from "@/components/svgs";
@@ -14,73 +15,113 @@ import "material-symbols";
 
 export default function Product({ bandData, scheduleData }) {
   const [snackOpen, setSnackOpen] = useState([false, ""]);
-  const [favourites, setFavourites] = useState();
+  const [favourites, setFavourites] = useState([]);
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
 
   useEffect(() => {
     const currentLocal = localStorage.getItem("favourites", JSON.stringify(favourites));
-    console.log("CurrentLocal", currentLocal);
 
     if (currentLocal !== null) {
-      const currentToArray = currentLocal.split(`","`);
-      console.log("currentToArray", currentToArray);
-      setFavourites(currentToArray);
+      const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
+      for (let i = 0; i < currentToArray.length; i++) {
+        if (currentToArray[i] === bandData.name) {
+          setFavourites(currentToArray[i]);
+          setChecked(true);
+        }
+      }
     } else {
-      console.log("LocalStorage is Empty");
+      console.log("LocalStorage is Empty 1");
     }
   }, []);
 
   useEffect(() => {
-    const favToString = JSON.stringify(favourites);
-    console.log("FavToString", favToString);
-    if (favToString !== undefined || favToString === []) {
-      const editFav = favToString.substring(2, favToString.lastIndexOf(`"]`));
-      localStorage.setItem("favourites", editFav);
-      // console.log("editFav", editFav);
-    } else {
-      localStorage.removeItem("favourites");
+    const currentLocal = localStorage.getItem("favourites");
+    // console.log("currentLocal, 2nd effect", currentLocal);
+    if (currentLocal !== null) {
+      const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
+      // console.log("curToArray", currentToArray);
+
+      // if (favourites !== [] && currentToArray.includes(bandData.name)) {
+      //   console.log("Band er i array");
+      // } else if (favourites !== [] && !currentToArray.includes(bandData.name)) {
+      //   console.log("Band er ikke i array");
+      if (favourites !== [] && !currentToArray.includes(bandData.name)) {
+        // NEED TO MAKE IT NOT PUSH IF EMPTY
+
+        const updatedLocal = [...currentToArray, favourites];
+        const newUpdatedLocal = updatedLocal.map((band) => band + "/");
+        console.log("Concat", newUpdatedLocal);
+        const NULJSON = JSON.stringify(newUpdatedLocal);
+        const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
+        console.log("NULJSON2 - 1", NULJSON);
+        // localStorage.setItem("favourites", NULJSON2);
+      } else if (favourites === [] && currentToArray.includes(bandData.name)) {
+        const filteredList = currentToArray.filter((band) => band !== favourites);
+        const newUpdatedLocal = filteredList.map((band) => band + "/");
+        console.log("TheFiltering", newUpdatedLocal);
+        const NULJSON = JSON.stringify(newUpdatedLocal);
+        const NULJSON2 = NULJSON.substring(2, NULJSON.lastIndexOf(`"]`));
+        console.log("NULJSON2 - 2", NULJSON);
+        // localStorage.setItem("favourites", NULJSON2);
+      }
     }
+    // console.log("fav3", favourites);
+    //   if (currentLocal !== null) {
+    //     if (!favourites === [] && currentToArray.includes(favourites)) {
+    //       const currentToArray = currentLocal.substring(0, currentLocal.length - 1).split(`/","`);
+    //       console.log("currentToArray first bro", currentToArray);
+    //       const updatedLocal = [...currentToArray, favourites];
+    //       const localString = JSON.stringify(updatedLocal);
+    //       console.log("localString1", localString)
+    //     } else {
+    //       // console.log("Else?", currentToArray);
+    //       // const localString = JSON.stringify(currentToArray.filter((band) => band === favourites));
+    //       // console.log("localString2", localString);
+    //       // localStorage.setItem("favourites", localString);
+    //     }
+    //   } else {
+    //     console.log("LocalStorage is Empty 2");
+    //   }
   }, [favourites]);
 
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-  const LocalStorageFavourite = (e) => {
-    // console.log(e)
+  function LocalStorageFavourite() {
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     if (snackOpen[0] === true) {
       closeSnack;
       sleep(500).then(() => {
-        if (e.target.checked === true) {
-          setSnackOpen([true, `${e.target.value} has been added to favourites`]);
-          // localStorage.setItem("favourites", JSON.stringify(favourites));
+        if (favourites === bandData.name) {
+          console.log("1) vi er her");
+          setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
+          setFavourites([]);
+          setChecked(false);
         } else {
-          setSnackOpen([true, `${e.target.value} has been removed from favourites`]);
+          console.log("2) Nej, vi er her");
+          setSnackOpen([true, `${bandData.name} has been added to favourites`]);
+          setFavourites([bandData.name]);
+          setChecked(true);
         }
       });
     } else if (snackOpen[0] === false) {
-      e.target.checked === true ? setSnackOpen([true, `${e.target.value} has been added to favourites`]) : setSnackOpen([true, `${e.target.value} has been removed from favourites`]);
+      if (favourites === bandData.name) {
+        console.log("3) Nej, nej nej, vi er her");
+        setSnackOpen([true, `${bandData.name} has been removed from favourites`]);
+        setFavourites([]);
+        setChecked(false);
+      } else {
+        console.log("4) Hallo, vi er her");
+        setSnackOpen([true, `${bandData.name} has been added to favourites`]);
+        setFavourites([bandData.name]);
+        setChecked(true);
+      }
     }
-    CheckFavourites(e.target.value, e.target.checked);
-  };
+  }
 
   function closeSnack() {
     setSnackOpen([false, ""]);
-  }
-
-  function CheckFavourites(band, i) {
-    if (i === true) {
-      if (favourites === undefined) {
-        setFavourites([`${band}/`]);
-      } else {
-        setFavourites([...favourites, `${band}/`]);
-      }
-    } else {
-      if (favourites.length === 0) {
-        setFavourites();
-      } else {
-        const newFavourites = favourites.filter((fav) => fav != `${band}/`);
-        setFavourites(newFavourites);
-      }
-    }
-    console.log("CheckFav", favourites);
   }
 
   const action = (
@@ -96,22 +137,8 @@ export default function Product({ bandData, scheduleData }) {
     </>
   );
 
-  const localChecked = (band) => {
-    if (favourites !== undefined) {
-      for (let i = 0; i < favourites.length; i++) {
-        if (favourites[i].substring(0, favourites[i].lastIndexOf("/")) === band) {
-          console.log(favourites[i].substring(0, favourites[i].lastIndexOf("/")));
-          console.log(band);
-          return "checked";
-        }
-      }
-    } else {
-      return "";
-    }
-  };
-
-  console.log(bandData);
-  console.log("scheduleData", scheduleData);
+  // console.log(bandData);
+  // console.log("scheduleData", scheduleData);
   const logoUrl = bandData.logo.startsWith("https://") ? bandData.logo : `https://scratched-bronze-lingonberry.glitch.me/logos/${bandData.logo}`;
   // matching act is initialized as null
   let matchingAct = null; // Initialize a variable to store the matching act
@@ -179,24 +206,34 @@ export default function Product({ bandData, scheduleData }) {
 
   // matchingAct now contains the data for the matching act, if any.
   // This can be used to display the relevant information on the page.
-  console.log(matchingAct);
-  console.log(matchingAct.cancelled);
+  // console.log(matchingAct);
+  // console.log(matchingAct.cancelled);
   return (
     <>
       <Head>
         <title>{bandData.name}</title>
       </Head>
       <div className="max-w-screen-xl m-auto">
+        <p className="text-color-white">
+          Favourites: <span>{favourites}</span>
+        </p>
+        <button className="text-color-white" onClick={() => console.log(checked)}>
+          Is Checked? -
+        </button>
+        {/* <button className="text-color-white" onClick={() => console.log(favourites)}>
+          Band name
+        </button> */}
         <div className="relative aspect-video object-contain grid ">
           <Button onClick={() => goBack()} className="absolute left-1 top-1 z-40">
             <ArrowLeft className="fill-color-yellow w-10" />
           </Button>
           {matchingAct.cancelled !== true ? (
-            <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-yellow p-5 rounded-full flex items-center justify-center z-10">
+            <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-yellow p-5 rounded-full flex items-center justify-center z-20">
               <Checkbox
                 onClick={LocalStorageFavourite}
-                checked={localChecked(bandData.act)}
-                value={bandData.act}
+                onChange={handleChange}
+                checked={checked}
+                value={bandData.name}
                 className="p-0"
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite />}
@@ -239,7 +276,6 @@ export default function Product({ bandData, scheduleData }) {
         <div className="flex justify-center gap-10">
           <Spotify className="w-12 h-12 mr-10" />
           <Youtube className="w-12 h-12" />
-          <button onClick={() => consol.log(favourites)}>Get Data</button>
         </div>
       </div>
       <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[1]} action={action} />;
