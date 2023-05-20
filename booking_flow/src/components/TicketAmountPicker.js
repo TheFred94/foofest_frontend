@@ -12,6 +12,7 @@ export function TicketAmountPicker(props) {
   const [ticketAmount, setTicketAmount] = useState(1);
   const [oneTentForEach, setOneTentForEach] = useState(false);
   const [twoPersonTentNum, setTwoPersonTentNum] = useState(0);
+  const [numberOfTickets, setNumberOfTickets] = useState(0);
 
   /* makes sure that bookingDetails is updated everytime either  "ticketAmount" or "oneTentForEach" changes */
   useEffect(() => {
@@ -48,7 +49,7 @@ export function TicketAmountPicker(props) {
     <>
       <div className="flex items-center">
         <Button
-          className="font-bold text-5xl rounded-2 border-2 border-solid place-self-center border-color-yellow text-color-blue h-14 font-sans"
+          className="rounded-2 h-14 place-self-center border-2 border-solid border-color-yellow font-sans text-5xl font-bold text-color-blue"
           variant="contained"
           style={{ backgroundColor: "yellow" }}
           onClick={() => addOrSubtractTicket(false)} /* this button subtracts one from ticketAmount */
@@ -56,10 +57,10 @@ export function TicketAmountPicker(props) {
           -
         </Button>
 
-        <p className="mx-16 font-bold text-5xl">{ticketAmount}</p>
+        <p className="mx-16 text-5xl font-bold">{ticketAmount}</p>
 
         <Button
-          className="text-color-blue font-bold text-5xl font-sans rounded-2 border-2 border-solid place-self-center border-color-yellow h-14"
+          className="rounded-2 h-14 place-self-center border-2 border-solid border-color-yellow font-sans text-5xl font-bold text-color-blue"
           variant="text"
           style={{ backgroundColor: "yellow" }}
           onClick={() => addOrSubtractTicket(true)} /* this button adds one to ticketAmount */
@@ -91,7 +92,7 @@ export function TicketAmountPicker(props) {
             />
           }
           label={<Typography style={{ fontFamily: "var(--font-josefin" }}>One tent for each person?</Typography>}
-          className="flex items-center text-color-white font-sans pt-5"
+          className="flex items-center pt-5 font-sans text-color-white"
         />
       </FormGroup>
     </>
