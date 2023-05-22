@@ -173,7 +173,9 @@ export default function TentSelection() {
             </div>
           </article>
         </div>
-        <button
+
+        {/* --------- these buttons is for testing  -------------- */}
+        {/* <button
           className="m-5 bg-color-white p-5"
           onClick={() => {
             console.log(`This is bookingDetails: `, bookingDetails);
@@ -191,7 +193,7 @@ export default function TentSelection() {
           Log tents
         </button>
 
-        <button onClick={() => console.log(spotsLeft)}> se spotsleft</button>
+        <button onClick={() => console.log(spotsLeft)}> se spotsleft</button> */}
       </section>
     </>
   );
