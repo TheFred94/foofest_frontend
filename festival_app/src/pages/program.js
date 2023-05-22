@@ -136,9 +136,8 @@ const LocalStorageFavourite = (e) => {
     <div className="max-w-screen-xl my-32 m-auto bg-gradient-to-b from-color-black to-color-blue">
       <h1 className="uppercase text-center text-9xl">Program</h1>
       <TextField onChange={handleChange} placeholder="Search for band"></TextField>
-      <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
-      <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
-
+      <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} selectedAct={selectedAct} />
+      <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} selectedAct={selectedAct}/>
       <span className="text-color-white text-xl">{favourites}</span>
       <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
       <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[1]} action={action} />;
@@ -146,7 +145,11 @@ const LocalStorageFavourite = (e) => {
   );
 }
 
-function FilterbuttonsStage({ schedule, onClick }) {
+function FilterbuttonsStage({ schedule, onClick, selectedAct }) {
+if (selectedAct !== "") {
+  return
+}
+
   return (
     <div className="w-screen">
       <Button onClick={() => onClick("")}>All</Button>
@@ -159,7 +162,8 @@ function FilterbuttonsStage({ schedule, onClick }) {
   );
 }
 
-function FilterbuttonsDay({ schedule, onClick }) {
+function FilterbuttonsDay({ schedule, onClick, selectedAct }) {
+  
   const days = new Set();
 
   Object.keys(schedule).map((stage) => {
@@ -167,6 +171,10 @@ function FilterbuttonsDay({ schedule, onClick }) {
       days.add(day);
     });
   });
+
+  if (selectedAct !== "") {
+    return
+  }
 
   return (
     <div className="w-screen">
@@ -342,16 +350,17 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, localChec
 
 
 function SearchedBands({bands, schedule, selectedAct, LocalStorageFavourite, localChecked}) {
-    /* var midArray = schedule.Midgard
-  var VanaArray = schedule.Vanaheim
-  var JotunArray = schedule.Jotunheim */
-
+   
 let allBands = []
 /* Tager alle acts ud af dage og stages og smider i et stort array */
 Object.values(schedule).map(stage => {Object.values(stage).map(day =>  { for (let i = 0; i < day.length; i++) {
   allBands.push(day[i])}
   
 })})
+
+ /* var midArray = schedule.Midgard
+  var VanaArray = schedule.Vanaheim
+  var JotunArray = schedule.Jotunheim */
 
 /* Object.values(midArray).map(day =>  { for (let i = 0; i < day.length; i++) {
   bandSearchList.push(day[i])}
