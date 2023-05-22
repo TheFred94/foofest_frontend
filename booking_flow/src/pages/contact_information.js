@@ -122,31 +122,20 @@ const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(props,
 });
 
 function Contact() {
-  const [contactForms, setContactForms] = useState([]);
   const [currentAccordionIndex, setCurrentAccordionIndex] = useState(0);
 
-  // We use useEffect to avoid hydration issues and discrepancies between client and serverside rendering of the form
-  useEffect(() => {
-    const numOfTickets = 5;
-    const forms = [];
-
-    for (let i = 0; i < numOfTickets; i++) {
-      forms.push(<ContactForm numOfTickets={i + 1} key={i} isExpanded={i === currentAccordionIndex} onNextTicket={() => handleNextTicket(i)} />);
-    }
-
-    // We use the setContactForms function to update the state and store the generated forms
-    setContactForms(forms);
-  }, [currentAccordionIndex]);
-
-  const handleNextTicket = (currentIndex) => {
-    if (currentIndex === currentAccordionIndex) {
-      setCurrentAccordionIndex(currentAccordionIndex + 1);
-    }
+  const handleNextTicket = () => {
+    setCurrentAccordionIndex(currentAccordionIndex + 1);
   };
 
   return (
     <>
-      <form>{contactForms}</form>
+      <form>
+        {[...Array(5)].map((_, index) => (
+          <ContactForm numOfTickets={index + 1} key={index} isExpanded={index === currentAccordionIndex} onNextTicket={handleNextTicket} onClickAccordion={() => setCurrentAccordionIndex(index)} />
+        ))}
+      </form>
+
       <Button className=" rounded-none border-2 border-solid place-self-center border-color-yellow h-10 mb-10 px-6 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold gap-5 ">
         <span className="pt-1">Go to payment</span>
       </Button>
@@ -179,7 +168,7 @@ function ContactForm(props) {
 
   return (
     <Accordion className="bg-color-white " expanded={props.isExpanded}>
-      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" onClick={props.onClickAccordion}>
         <Typography className="text-color-black">Ticket #{props.numOfTickets} </Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -190,7 +179,6 @@ function ContactForm(props) {
         <ValidationTextField fullWidth className="mt-4" label="Street and house number" required variant="outlined" defaultValue="" id="validation-outlined-input" />
         <ValidationTextFieldZip type="number" fullWidth className="mt-4" label="Zip code" required variant="outlined" value={zipCode} defaultValue="" id="validation-outlined-input" onChange={handleChangeZip} inputValueZip={inputValueZip} />
       </AccordionDetails>
-
       <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 " onClick={props.onNextTicket}>
         <span className="pt-1">Next ticket</span>
       </Button>
