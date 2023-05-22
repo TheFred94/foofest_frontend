@@ -9,6 +9,56 @@ import Button from "@mui/material/Button";
 import { IMaskInput } from "react-imask";
 import { NumericFormat } from "react-number-format";
 
+const ValidationTextFieldPhone = styled(TextField)(({ inputValue }) => ({
+  "& label.Mui-focused": {
+    color: "#A0AAB4",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#B2BAC2",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "black",
+    },
+    "&:hover fieldset": {
+      borderColor: "#B2BAC2",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1D1C29",
+    },
+    "& input:valid + fieldset": {
+      borderColor: "green",
+      borderColor: inputValue === 11 ? "green" : "black",
+      borderWidth: 2,
+    },
+  },
+}));
+
+const ValidationTextFieldZip = styled(TextField)(({ inputValueZip }) => ({
+  "& label.Mui-focused": {
+    color: "#A0AAB4",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#B2BAC2",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "black",
+    },
+    "&:hover fieldset": {
+      borderColor: "#B2BAC2",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1D1C29",
+    },
+    "& input:valid + fieldset": {
+      borderColor: "green",
+      borderColor: inputValueZip === 4 ? "green" : "black",
+      borderWidth: 2,
+    },
+  },
+}));
+
 const ValidationTextField = styled(TextField)({
   "& label.Mui-focused": {
     color: "#A0AAB4",
@@ -98,6 +148,7 @@ function Contact() {
 }
 
 function ContactForm(props) {
+  const [zipCode, setZipCode] = useState("");
   const [values, setValues] = React.useState({
     textmask: "",
   });
@@ -108,16 +159,29 @@ function ContactForm(props) {
       [event.target.name]: event.target.value,
     });
   };
+
+  const handleChangeZip = (event) => {
+    const limit = 4;
+
+    setZipCode(event.target.value.slice(0, limit));
+    console.log(event.target.value.length);
+  };
+
+  const inputValue = values.textmask.length;
+  const inputValueZip = zipCode.length;
+
   return (
     <Accordion className="bg-color-white ">
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
         <Typography className="text-color-black">Ticket #{props.randomNumber} </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <ValidationTextField fullWidth className="mt-4" label="CSS validation style" required variant="outlined" defaultValue="" id="validation-outlined-input" />
-      </AccordionDetails>
-      <AccordionDetails>
-        <ValidationTextField value={values.textmask} onChange={handleChange} name="textmask" id="formatted-text-mask-input" InputProps={{ inputComponent: TextMaskCustom }} fullWidth className="mt-4" label="Phone number" required variant="outlined" />
+        <ValidationTextField fullWidth label="First name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextField fullWidth className="mt-4" label="Last name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextFieldPhone className="mt-4" onChange={handleChange} name="textmask" id="formatted-text-mask-input" InputProps={{ inputComponent: TextMaskCustom }} fullWidth label="Phone number" required variant="outlined" value={values.textmask} inputValue={inputValue} />
+        <ValidationTextField type="email" fullWidth className="mt-4" label="Email" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextField fullWidth className="mt-4" label="Street and house number" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextFieldZip type="number" fullWidth className="mt-4" label="Zip code" required variant="outlined" value={zipCode} defaultValue="" id="validation-outlined-input" onChange={handleChangeZip} inputValueZip={inputValueZip} />
       </AccordionDetails>
 
       <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 ">
