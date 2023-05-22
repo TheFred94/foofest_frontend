@@ -123,19 +123,26 @@ const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(props,
 
 function Contact() {
   const [contactForms, setContactForms] = useState([]);
+  const [currentAccordionIndex, setCurrentAccordionIndex] = useState(0);
 
   // We use useEffect to avoid hydration issues and discrepancies between client and serverside rendering of the form
   useEffect(() => {
-    const randomNumber = Math.floor(Math.random() * 10);
+    const numOfTickets = 5;
     const forms = [];
 
-    for (let i = 0; i < randomNumber; i++) {
-      forms.push(<ContactForm randomNumber={randomNumber} key={i} />);
+    for (let i = 0; i < numOfTickets; i++) {
+      forms.push(<ContactForm numOfTickets={i + 1} key={i} isExpanded={i === currentAccordionIndex} onNextTicket={() => handleNextTicket(i)} />);
     }
 
     // We use the setContactForms function to update the state and store the generated forms
     setContactForms(forms);
-  }, []);
+  }, [currentAccordionIndex]);
+
+  const handleNextTicket = (currentIndex) => {
+    if (currentIndex === currentAccordionIndex) {
+      setCurrentAccordionIndex(currentAccordionIndex + 1);
+    }
+  };
 
   return (
     <>
@@ -164,16 +171,16 @@ function ContactForm(props) {
     const limit = 4;
 
     setZipCode(event.target.value.slice(0, limit));
-    console.log(event.target.value.length);
+    // console.log(event.target.value.length);
   };
 
   const inputValue = values.textmask.length;
   const inputValueZip = zipCode.length;
-
+  const handleAccordionClick = () => {};
   return (
-    <Accordion className="bg-color-white ">
+    <Accordion className="bg-color-white " expanded={props.isExpanded} onClick={handleAccordionClick}>
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-        <Typography className="text-color-black">Ticket #{props.randomNumber} </Typography>
+        <Typography className="text-color-black">Ticket #{props.numOfTickets} </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <ValidationTextField fullWidth label="First name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
@@ -184,7 +191,7 @@ function ContactForm(props) {
         <ValidationTextFieldZip type="number" fullWidth className="mt-4" label="Zip code" required variant="outlined" value={zipCode} defaultValue="" id="validation-outlined-input" onChange={handleChangeZip} inputValueZip={inputValueZip} />
       </AccordionDetails>
 
-      <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 ">
+      <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 " onClick={props.onNextTicket}>
         <span className="pt-1">Next ticket</span>
       </Button>
     </Accordion>
