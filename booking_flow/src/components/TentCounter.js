@@ -1,4 +1,6 @@
+import { BookingInformation } from "@/pages/_app";
 import Button from "@mui/material/Button";
+import { useContext, useState, useEffect } from "react";
 
 export function TentCounter(props) {
   return (
