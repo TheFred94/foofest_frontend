@@ -176,9 +176,9 @@ function ContactForm(props) {
 
   const inputValue = values.textmask.length;
   const inputValueZip = zipCode.length;
-  const handleAccordionClick = () => {};
+
   return (
-    <Accordion className="bg-color-white " expanded={props.isExpanded} onClick={handleAccordionClick}>
+    <Accordion className="bg-color-white " expanded={props.isExpanded}>
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
         <Typography className="text-color-black">Ticket #{props.numOfTickets} </Typography>
       </AccordionSummary>
