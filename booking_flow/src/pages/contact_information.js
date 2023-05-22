@@ -6,6 +6,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { IMaskInput } from "react-imask";
+import { NumericFormat } from "react-number-format";
 
 const ValidationTextField = styled(TextField)({
   "& label.Mui-focused": {
@@ -29,6 +31,44 @@ const ValidationTextField = styled(TextField)({
       borderWidth: 2,
     },
   },
+});
+
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props;
+  return (
+    <IMaskInput
+      {...other}
+      mask="00 00 00 00"
+      definitions={{
+        "#": /[1-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+const NumericFormatCustom = React.forwardRef(function NumericFormatCustom(props, ref) {
+  const { onChange, ...other } = props;
+
+  return (
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      valueIsNumericString
+      prefix="$"
+    />
+  );
 });
 
 function Contact() {
@@ -58,6 +98,16 @@ function Contact() {
 }
 
 function ContactForm(props) {
+  const [values, setValues] = React.useState({
+    textmask: "",
+  });
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
   return (
     <Accordion className="bg-color-white ">
       <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -67,7 +117,7 @@ function ContactForm(props) {
         <ValidationTextField fullWidth className="mt-4" label="CSS validation style" required variant="outlined" defaultValue="" id="validation-outlined-input" />
       </AccordionDetails>
       <AccordionDetails>
-        <ValidationTextField fullWidth className="mt-4" label="Phone number" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextField value={values.textmask} onChange={handleChange} name="textmask" id="formatted-text-mask-input" InputProps={{ inputComponent: TextMaskCustom }} fullWidth className="mt-4" label="Phone number" required variant="outlined" />
       </AccordionDetails>
 
       <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 ">
