@@ -1,10 +1,35 @@
 import React, { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+
+const ValidationTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "#A0AAB4",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "#B2BAC2",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "black",
+    },
+    "&:hover fieldset": {
+      borderColor: "#B2BAC2",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#1D1C29",
+    },
+    "& input:valid + fieldset": {
+      borderColor: "green",
+      borderWidth: 2,
+    },
+  },
+});
 
 function Contact() {
   const [contactForms, setContactForms] = useState([]);
@@ -15,11 +40,7 @@ function Contact() {
     const forms = [];
 
     for (let i = 0; i < randomNumber; i++) {
-      forms.push(
-        <>
-          <ContactForm randomNumber={randomNumber} key={i} />
-        </>
-      );
+      forms.push(<ContactForm randomNumber={randomNumber} key={i} />);
     }
 
     // We use the setContactForms function to update the state and store the generated forms
@@ -38,18 +59,21 @@ function Contact() {
 
 function ContactForm(props) {
   return (
-    <>
-      <Accordion className="">
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography className="text-color-black">Ticket #{props.randomNumber} </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <TextField className="bg-color-white" required id="outlined-required" label="Full Name" variant="filled" />
-          <TextField className="bg-color-white" required id="outlined-required" label="Email" variant="filled" />
-          <TextField className="bg-color-white" required id="outlined-required" label="Phone" variant="filled" />
-        </AccordionDetails>
-      </Accordion>
-    </>
+    <Accordion className="bg-color-white ">
+      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <Typography className="text-color-black">Ticket #{props.randomNumber} </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <ValidationTextField fullWidth className="mt-4" label="CSS validation style" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+      </AccordionDetails>
+      <AccordionDetails>
+        <ValidationTextField fullWidth className="mt-4" label="Phone number" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+      </AccordionDetails>
+
+      <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 ">
+        <span className="pt-1">Next ticket</span>
+      </Button>
+    </Accordion>
   );
 }
 

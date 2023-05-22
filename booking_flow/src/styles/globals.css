@@ -59,3 +59,15 @@ span {
 .css-8je8zh-MuiTouchRipple-root {
   color: #f9f01f;
 }
+
+.css-ahj2mt-MuiTypography-root {
+  font-family: var(--font-josefin);
+}
+
+.css-10botns-MuiInputBase-input-MuiFilledInput-input,
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: var(--font-josefin);
+}
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #1d1c29;
+}
