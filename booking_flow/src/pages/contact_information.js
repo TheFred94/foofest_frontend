@@ -17,7 +17,7 @@ function Contact() {
     for (let i = 0; i < randomNumber; i++) {
       forms.push(
         <>
-          <ContactForm key={i} />
+          <ContactForm randomNumber={randomNumber} key={i} />
         </>
       );
     }
@@ -36,12 +36,12 @@ function Contact() {
   );
 }
 
-function ContactForm() {
+function ContactForm(props) {
   return (
     <>
-      <Accordion>
+      <Accordion className="">
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography className="text-color-black">Collapsible Group Item </Typography>
+          <Typography className="text-color-black">Ticket #{props.randomNumber} </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <TextField className="bg-color-white" required id="outlined-required" label="Full Name" variant="filled" />
