@@ -43,20 +43,6 @@ export default function Program({ schedule, bands }) {
       }
   }, [favourites])
 
-  function handleStageClick(stage) {
-    setSelectedStage(stage);
-  }
-
-  function handleDayClick(day) {
-    setSelectedDay(day);
-    console.log(day);
-  }
-
-  function handleChange(e) {
-    setSelectedAct(e.target.value);
-    console.log(e.target.value);
-  }
-
   const sleep = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
 
@@ -130,13 +116,26 @@ const LocalStorageFavourite = (e) => {
     }
   }
 
+    function handleStageClick(stage) {
+    setSelectedStage(stage);
+  }
+
+  function handleDayClick(day) {
+    setSelectedDay(day);
+    console.log(day);
+  }
+
+  function handleChange(e) {
+    setSelectedAct(e.target.value);
+    console.log(e.target.value);
+  }
+
   return (
     <div className="max-w-screen-xl my-32 m-auto bg-gradient-to-b from-color-black to-color-blue">
       <h1 className="uppercase text-center text-9xl">Program</h1>
       <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
-
       <span className="text-color-white text-xl">{favourites}</span>
       <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
       <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[1]} action={action} />;
