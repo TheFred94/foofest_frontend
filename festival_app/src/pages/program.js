@@ -6,13 +6,14 @@ import Anchor from "@/components/Anchor";
 import Link from "next/link";
 import { TextField, Checkbox, Snackbar, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
+import { BadgeRounded } from "@mui/icons-material";
 
 export default function Program({ schedule, bands }) {
   // console.log(schedule);
   // console.log(bands);
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [selectedAct, setSelectedAct] = useState(null);
+  const [selectedAct, setSelectedAct] = useState("");
   const [snackOpen, setSnackOpen] = useState([false, ""]);
   const [favourites, setFavourites] = useState()
   const [showTime, setShowTime] = useState(false)
@@ -55,6 +56,7 @@ export default function Program({ schedule, bands }) {
   function handleChange(e) {
     setSelectedAct(e.target.value);
     console.log(e.target.value);
+    console.log("length", setSelectedAct.length);
   }
 
   const sleep = ms =>
@@ -133,7 +135,7 @@ const LocalStorageFavourite = (e) => {
   return (
     <div className="max-w-screen-xl my-32 m-auto bg-gradient-to-b from-color-black to-color-blue">
       <h1 className="uppercase text-center text-9xl">Program</h1>
-      <TextField onChange={handleChange}></TextField>
+      <TextField onChange={handleChange} placeholder="Search for band"></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
 
@@ -191,9 +193,43 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
   //   setSnackOpen([false, "", ""]);
   // }
 
+let bandSearchList = []
+/* var midArray = schedule.Midgard
+var VanaArray = schedule.Vanaheim
+var JotunArray = schedule.Jotunheim */
+
+Object.values(schedule).map(stage => {Object.values(stage).map(day =>  { for (let i = 0; i < day.length; i++) {
+  bandSearchList.push(day[i])}
+  
+})})
+
+/* Object.values(midArray).map(day =>  { for (let i = 0; i < day.length; i++) {
+  bandSearchList.push(day[i])}
+  
+})
+Object.values(VanaArray).map(day =>  { for (let i = 0; i < day.length; i++) {
+  bandSearchList.push(day[i])}
+  
+})
+Object.values(JotunArray).map(day =>  { for (let i = 0; i < day.length; i++) {
+  bandSearchList.push(day[i])}
+  
+}) */
 
 
-  return (
+console.log(bandSearchList);
+
+if (selectedAct !== "") {
+  return <div>
+
+  {bandSearchList.filter(band => band.act.toLowerCase() !== "break" && (!selectedAct || band.act.toLowerCase().includes(selectedAct))).map(band => {
+    return <pre className="text-color-orange">{band.act}</pre>
+  })}
+  </div>
+}
+
+
+return (
     <div className="schedule">
       {/* Denne function gør at vi kan filtrere på hvilke scener der skal vises */}
       {Object.keys(schedule)
@@ -258,14 +294,17 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
     .filter(day => !selectedDay || day === selectedDay)
     .map(day => {
 {/* --------------------------------------- */}
-     if (selectedDay === (day) ){
+     if (selectedDay === (day)){
       return <div  key={day}>
-        <h3 className="text-5xl uppercase text-center my-16" >{fullDayName(day)}</h3>
+      
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3 ">
         <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
       </div>
-    } else { 
+    } else if (selectedAct !== ""){
+      return <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
+      
+    }else { 
  /* --------------------------------------- */
       return <div key={day}>
         <h3 className="text-5xl uppercase text-center mt-28 mb-14" >{fullDayName(day)}</h3>
