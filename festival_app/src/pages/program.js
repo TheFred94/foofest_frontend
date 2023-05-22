@@ -132,6 +132,20 @@ const LocalStorageFavourite = (e) => {
     }
   }
 
+    function handleStageClick(stage) {
+    setSelectedStage(stage);
+  }
+
+  function handleDayClick(day) {
+    setSelectedDay(day);
+    console.log(day);
+  }
+
+  function handleChange(e) {
+    setSelectedAct(e.target.value);
+    console.log(e.target.value);
+  }
+
   return (
     <div className="max-w-screen-xl my-32 m-auto bg-gradient-to-b from-color-black to-color-blue">
       <h1 className="uppercase text-center text-9xl">Program</h1>
