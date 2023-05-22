@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "@mui/material/Button";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
@@ -103,19 +102,19 @@ const LocalStorageFavourite = (e) => {
     </>
   );
 
-  // const localChecked = (band) => {
-  //   if (favourites !== undefined) {
-  //     for (let i = 0; i < favourites.length; i++) {
-  //       if (favourites[i].substring(0,favourites[i].lastIndexOf("/") ) === band) {
-  //         console.log(favourites[i].substring(0,favourites[i].lastIndexOf("/")))
-  //         console.log(band)
-  //         return "checked"
-  //       }
-  //     } 
-  //   } else {
-  //     return ""
-  //   }
-  // }
+  const localChecked = (band) => {
+    if (favourites !== undefined) {
+      for (let i = 0; i < favourites.length; i++) {
+        if (favourites[i].substring(0,favourites[i].lastIndexOf("/") ) === band) {
+          console.log(favourites[i].substring(0,favourites[i].lastIndexOf("/")))
+          console.log(band)
+          return "checked"
+        }
+      } 
+    } else {
+      return ""
+    }
+  }
 
     function handleStageClick(stage) {
     setSelectedStage(stage);
@@ -137,9 +136,8 @@ const LocalStorageFavourite = (e) => {
       <TextField onChange={handleChange}></TextField>
       <FilterbuttonsStage schedule={schedule} onClick={handleStageClick} />
       <FilterbuttonsDay schedule={schedule} onClick={handleDayClick} />
-
       <span className="text-color-white text-xl">{favourites}</span>
-      <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} favourites={favourites} />
+      <Schedule schedule={schedule} selectedStage={selectedStage} selectedDay={selectedDay} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
       <Snackbar open={snackOpen[0]} autoHideDuration={4000} onClose={closeSnack} message={snackOpen[1]} action={action} />;
     </div>
   );
@@ -179,7 +177,7 @@ function FilterbuttonsDay({ schedule, onClick }) {
   );
 }
 
-function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, LocalStorageFavourite, favourites }) {
+function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, LocalStorageFavourite, localChecked }) {
 
   //   function LocalStorageFavourite(e) {
   //   console.log(e);
@@ -210,7 +208,7 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
               selectedAct={selectedAct}
               bands={bands}
               LocalStorageFavourite={LocalStorageFavourite}
-              favourites={favourites}
+              localChecked={localChecked}
               />
           </div>} else {
 /* --------------------------------------- */
@@ -223,7 +221,7 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
               selectedAct={selectedAct}
               bands={bands}
               LocalStorageFavourite={LocalStorageFavourite}
-              favourites={favourites}
+              localChecked={localChecked}
             />
           </div>
           }
@@ -232,7 +230,7 @@ function Schedule({ schedule, selectedStage, selectedDay, selectedAct, bands, Lo
   );
 }
 
-function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourite, favourites }) {
+function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourite, localChecked }) {
 
   const fullDayName = (day) => {
     if (day === "mon") {
@@ -263,7 +261,7 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
       return <div  key={day}>
         <h3 className="text-5xl uppercase text-center my-16" >{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3 ">
-        <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} favourites={favourites} />
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
       </div>
     } else { 
@@ -271,23 +269,18 @@ function ObjectDay({stage, selectedDay, selectedAct, bands, LocalStorageFavourit
       return <div key={day}>
         <h3 className="text-5xl uppercase text-center mt-28 mb-14" >{fullDayName(day)}</h3>
         <div key={day} className="bandList grid sm:grid-cols-1 md:grid-cols-2 md:mb-4 lg:grid-cols-3">
-        <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} favourites={favourites} />
+        <ObjectBand days={...stage[day]} selectedAct={selectedAct} bands={bands} LocalStorageFavourite={LocalStorageFavourite} localChecked={localChecked} />
         </div>
       </div>
 }});
 }
 
-function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, favourites }) {
-  const [checked, setChecked] = React.useState(false)
+function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, localChecked }) {
 
-  const handleChange = (event) => {
-    setChecked(event.taget.checked)
-  }
-
-//Loop through favourites and make checked === true
-// send info to top regarding keeping band i favouriteState or remove it
-//Make sure the snackDrawer shows. 
-
+  // console.log("days", days)
+  // console.log("selectedAct", selectedAct)
+ /*  console.log("bands", bands) */
+  
 
   const bandSlug = (name) => {
     for (let i = 0; i < bands.length; i++) {
@@ -320,8 +313,7 @@ function ObjectBand({ days, selectedAct, bands, LocalStorageFavourite, favourite
     <div className="iconContainer absolute top-5 right-5 w-3 h-3 bg-color-yellow p-5 rounded-full flex items-center justify-center">
       <Checkbox
         onClick={LocalStorageFavourite}
-        onChange={handleChange}
-        checked={checked}
+        checked={localChecked(band.act)}
         value={band.act}
         className="p-0"
         icon={<FavoriteBorder />}
