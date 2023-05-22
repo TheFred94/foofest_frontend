@@ -15,7 +15,7 @@ export default function AreaAndAmount() {
   async function reserveTickets() {
     const payload = { area: bookingDetails.area, amount: bookingDetails.amount };
 
-    const response = await fetch("https://scratched-bronze-lingonberry.glitch.me/reserve-spot", {
+    const response = await fetch("http://localhost:8080/reserve-spot", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
