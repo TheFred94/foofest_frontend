@@ -16,7 +16,7 @@ export default function TicketTypeAndAddOn() {
   }
 
   function nextPage() {
-    router.push(`/tent_selection`);
+    router.push(bookingDetails.oneTentForEach ? `/index` : `/tent_selection`);
   }
   return (
     <>
