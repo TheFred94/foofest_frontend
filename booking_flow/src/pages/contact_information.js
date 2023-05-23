@@ -134,11 +134,10 @@ function Contact() {
         {[...Array(5)].map((_, index) => (
           <ContactForm numOfTickets={index + 1} key={index} isExpanded={index === currentAccordionIndex} onNextTicket={handleNextTicket} onClickAccordion={() => setCurrentAccordionIndex(index)} />
         ))}
+        <Button className=" rounded-none border-2 border-solid place-self-center border-color-yellow h-10 mb-10 px-6 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold gap-5 ">
+          <span className="pt-1">Go to payment</span>
+        </Button>
       </form>
-
-      <Button className=" rounded-none border-2 border-solid place-self-center border-color-yellow h-10 mb-10 px-6 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold gap-5 ">
-        <span className="pt-1">Go to payment</span>
-      </Button>
     </>
   );
 }
@@ -172,11 +171,11 @@ function ContactForm(props) {
         <Typography className="text-color-black">Ticket #{props.numOfTickets} </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <ValidationTextField fullWidth label="First name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
-        <ValidationTextField fullWidth className="mt-4" label="Last name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextField fullWidth type="text" label="First name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextField fullWidth className="mt-4" type="text" label="Last name" required variant="outlined" defaultValue="" id="validation-outlined-input" />
         <ValidationTextFieldPhone className="mt-4" onChange={handleChange} name="textmask" id="formatted-text-mask-input" InputProps={{ inputComponent: TextMaskCustom }} fullWidth label="Phone number" required variant="outlined" value={values.textmask} inputValue={inputValue} />
         <ValidationTextField type="email" fullWidth className="mt-4" label="Email" required variant="outlined" defaultValue="" id="validation-outlined-input" />
-        <ValidationTextField fullWidth className="mt-4" label="Street and house number" required variant="outlined" defaultValue="" id="validation-outlined-input" />
+        <ValidationTextField fullWidth className="mt-4" type="text" label="Street and house number" required variant="outlined" defaultValue="" id="validation-outlined-input" />
         <ValidationTextFieldZip type="number" fullWidth className="mt-4" label="Zip code" required variant="outlined" value={zipCode} defaultValue="" id="validation-outlined-input" onChange={handleChangeZip} inputValueZip={inputValueZip} />
       </AccordionDetails>
       <Button className=" rounded-none border-2 border-solid place-self-center border-color-black h-10 mb-10 px-6 text-color-black hover:bg-color-black hover:text-color-yellow font-sans font-semibold gap-5 " onClick={props.onNextTicket}>
