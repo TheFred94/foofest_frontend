@@ -36,7 +36,6 @@ export default function TentSelection() {
 
   function updateSpotsLeft() {
     setSpotsLeft(bookingDetails.spotAmount - totalTentCount);
-    console.log(spotsLeft);
   }
 
   function addOrSubtractTent(action, size, type) {

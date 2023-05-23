@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { BookingInformation } from "./_app";
 import ChooseAmount from "@/components/ChooseAmount";
 import { ChooseArea } from "../components/ChooseArea";
@@ -10,6 +10,7 @@ import "material-symbols";
 
 export default function TicketTypeAndAddOn() {
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
+  const [twoPersonTentNum, setTwoPersonTentNum] = useState(0);
   const router = useRouter();
   function loginfo() {
     console.log(bookingDetails);
@@ -17,6 +18,22 @@ export default function TicketTypeAndAddOn() {
 
   function nextPage() {
     router.push(bookingDetails.oneTentForEach ? `/index` : `/tent_selection`);
+  }
+
+  useEffect(() => {
+    updateTwoPersonTentNum();
+  }, []);
+
+  function updateTwoPersonTentNum() {
+    bookingDetails.oneTentForEach ? setTwoPersonTentNum(bookingDetails.ticketAmount) : setTwoPersonTentNum(0);
+  }
+
+  /*This function updates bookingDetails, by setting state to the new values of "ticketAmount" and oneTentForEach*/
+  function updateBookingDetails() {
+    setBookingDetails((prev) => ({
+      ...prev,
+      tents: { "2personTent": twoPersonTentNum },
+    }));
   }
   return (
     <>

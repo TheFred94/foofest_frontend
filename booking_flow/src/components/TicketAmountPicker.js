@@ -22,7 +22,6 @@ export function TicketAmountPicker(props) {
   // This function is checks action, and if action is true 1 is added to ticketAmount, but if it's false, then it subtracts one from ticketAmount
   function addOrSubtractTicket(action) {
     action ? setTicketAmount((old) => old + 1) : setTicketAmount((old) => old - 1);
-    oneTentForEach ? setTwoPersonTentNum(bookingDetails.ticketAmount) : setTwoPersonTentNum(0);
   }
 
   /*This function updates bookingDetails, by setting state to the new values of "ticketAmount" and oneTentForEach*/
@@ -31,7 +30,7 @@ export function TicketAmountPicker(props) {
       ...prev,
       ticketAmount: ticketAmount,
       oneTentForEach: oneTentForEach,
-      tents: { "2personTent": twoPersonTentNum, "3personTent": 0 },
+      tents: { "2personTent": twoPersonTentNum },
     }));
   }
 
