@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 import Backdrop from "@mui/material/Backdrop";
+import { Button } from "@mui/material";
 
 export default function TentSelection() {
   // set default state
@@ -116,6 +117,14 @@ export default function TentSelection() {
             >
               You have ran out of tent spots, if you want to fit more peope then buy or bring bigger tents
             </Typography>
+            <div className="mt-10 flex justify-center">
+              <Button
+                className=" mb-10 h-10 gap-5 place-self-center rounded-none border-2 border-solid border-color-yellow px-6 font-sans font-semibold text-color-yellow hover:bg-color-yellow hover:text-color-black "
+                onClick={handleClose}
+              >
+                <span className="pt-1">Close</span>
+              </Button>
+            </div>
           </Box>
         </Fade>
       </Modal>

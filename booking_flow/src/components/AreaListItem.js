@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
+import { Button } from "@mui/material";
 
 export function AreaListItem(props) {
   // creates variables and sets defaultState
@@ -127,6 +128,14 @@ export function AreaListItem(props) {
             >
               For at købe billetter til dette område bedes du justere på antal af billetter
             </Typography>
+            <div className="mt-10 flex justify-center">
+              <Button
+                className=" mb-10 h-10 gap-5 place-self-center rounded-none border-2 border-solid border-color-yellow px-6 font-sans font-semibold text-color-yellow hover:bg-color-yellow hover:text-color-black "
+                onClick={handleClose}
+              >
+                <span className="pt-1">Close</span>
+              </Button>
+            </div>
           </Box>
         </Fade>
       </Modal>
