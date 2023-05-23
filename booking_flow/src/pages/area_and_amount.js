@@ -13,7 +13,7 @@ export default function AreaAndAmount() {
   const [bookingDetails, setBookingDetails] = useContext(BookingInformation);
   const router = useRouter();
   async function reserveTickets() {
-    const payload = { area: bookingDetails.area, amount: bookingDetails.amount };
+    const payload = { area: bookingDetails.area, amount: bookingDetails.spotAmount };
 
     const response = await fetch("http://localhost:8080/reserve-spot", {
       method: "PUT",
@@ -25,7 +25,7 @@ export default function AreaAndAmount() {
     const json = await response.json();
     console.log(json);
     updateBookingDetails(json.id);
-    router.push(`/addOns`);
+    router.push(`/ticket_type_and_add_on`);
   }
   function updateBookingDetails(reservation_id) {
     setBookingDetails((prev) => ({
@@ -36,9 +36,10 @@ export default function AreaAndAmount() {
 
   return (
     <main>
-      <h1 className="text-center mx-4 mt-10"> Purchase ticket</h1>
-      <p className="pt-10 pb-10 mx-4">
-        With the mesmerizing <strong>Northern Lights</strong> as your backdrop, get ready to lose yourself to the beats of the loudest music that's sure to get your heart racing.
+      <h1 className="mx-4 mt-10 text-center"> Purchase ticket</h1>
+      <p className="mx-4 pb-10 pt-10">
+        With the mesmerizing <strong>Northern Lights</strong> as your backdrop, get ready to lose yourself to the beats of the
+        loudest music that's sure to get your heart racing.
       </p>
 
       {/* component, that lets user choose amount of tickets */}
@@ -50,17 +51,20 @@ export default function AreaAndAmount() {
       {/* button for testing, just logs bookingDetails */}
       <div className=" grid place-content-center">
         {/* Used to log the booking information to make sure the correct data is logged for the further flow */}
-        {/* <button
-          className="bg-color-white p-5 m-5"
+        <button
+          className="m-5 bg-color-white p-5"
           onClick={() => {
             console.log(`This is bookingDetails: `, bookingDetails);
           }}
         >
           Log bookingDetails
-        </button> */}
+        </button>
       </div>
-      <div className="flex justify-center mt-10">
-        <Button className=" rounded-none border-2 border-solid place-self-center border-color-yellow h-10 mb-10 px-6 text-color-yellow hover:bg-color-yellow hover:text-color-black font-sans font-semibold gap-5 " onClick={reserveTickets}>
+      <div className="mt-10 flex justify-center">
+        <Button
+          className=" mb-10 h-10 gap-5 place-self-center rounded-none border-2 border-solid border-color-yellow px-6 font-sans font-semibold text-color-yellow hover:bg-color-yellow hover:text-color-black "
+          onClick={reserveTickets}
+        >
           <span className="pt-1">Next step</span> <span className="material-symbols-outlined">arrow_forward</span>
         </Button>
       </div>
